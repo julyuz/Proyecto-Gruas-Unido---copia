@@ -66,7 +66,7 @@
 			$.ajax({
 		       type: "POST",
 		       data: $datos,
-		       url: "login/verificar.php",//URL dela funcion a ejecutar en table/clientes.php
+		       url: "login/verificar.php",//
 		       success: function (data){
 		       		if(data === "1")
 		       		{
@@ -77,8 +77,9 @@
 		       		if(data === "2")
 		       		{
 		       			//Materialize.toast("TRABAJADOR Nivel " + data, 3000);
-		       			guardarCookie('nivel', "2");
+		       			guardarCookie("nivel", "2");
 		       		}
+		       		//Materialize.toast("Data: " + data, 4500);
 			       		window.location.assign("index.php");
 		       },
 		       error: function (request, status, error) {
