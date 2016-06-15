@@ -31,7 +31,7 @@ body{
 
 .menu_0opacity{
     font-weight: 700;
-    margin: 0 .3em;
+    margin: 0 ;
     font-size: 2em;
     letter-spacing: -1px;
     /*
@@ -41,7 +41,6 @@ body{
     text-decoration: none;
     */
 }
-
 .title-user{
     text-decoration: none;
     margin: .9em 0 0 0;
