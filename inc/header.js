@@ -4,8 +4,19 @@
 */
 
 $('document').ready(function(e){
+	Materialize.toast("Listo el header", 9000);
+	console.log('Metodo de header.js leerCookie(nivel) : ' + leerCookie('nivel'));
 
+	var cookie = leerCookie('nivel').substring(0, 1);
+	console.log("Cookie: " + cookie + " length: " + cookie.length);
 
+	if( cookie === "2")
+	{
+		$("#modificar_clientes").hide();
+		$("#eliminar_clientes").hide();
+	}
+
+/*
 	$("#home").hide();
 	$("#cliente").hide();
 	$("#pago").hide();
@@ -38,6 +49,7 @@ $('document').ready(function(e){
 			$("#producto").show();
 		}
 	}
+	*/
 
 });//--------------------------END DOCUMENT*/
 
