@@ -5,7 +5,7 @@ date_default_timezone_set('America/Mexico_City');
 	if(isset($_SESSION['Usuario'])){
 
 	}else{
-		header("Location: iniciar.php?Error=Acceso denegado");
+		header("Location: iniciar.php?error=Acceso denegado");
 	}
 ?>
 
