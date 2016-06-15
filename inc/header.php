@@ -10,10 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script type="text/javascript" charset="utf8" src="js/jquery.dataTables.js"></script>
-    <script src="js/materialize.min.js"></script>
+
 
 </head>
 <body>
@@ -204,7 +201,16 @@
     </nav>
 
 
-	<script type="text/javascript">
+
+
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script type="text/javascript" charset="utf8" src="js/jquery.dataTables.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="inc/header.js"></script>
+    <script src="js/funciones_generales.js"></script>
+
+    <script type="text/javascript">
         $( document ).ready(function()
         {
         	$(".button-collapse").sideNav();
