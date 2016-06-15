@@ -70,16 +70,16 @@
 		       success: function (data){
 		       		if(data === "1")
 		       		{
-			       		Materialize.toast("Respuesta de iniciar_sesion: " + data, 3000);
+			       		//Materialize.toast("Respuesta de iniciar_sesion: " + data, 3000);
 			       		// Guardar cookie con el nombre ( primer parametro ) y su valor ( segundo parametro )
-			       		guardarCookie('nivel', data);
-			       		window.location.assign("index1.php");
+			       		guardarCookie("nivel", "1");
 		       		}
 		       		if(data === "2")
 		       		{
-		       			Materialize.toast("TRABAJADOR Nivel " data, 3000);
-		       			guardarCookie('nivel', data);
+		       			//Materialize.toast("TRABAJADOR Nivel " + data, 3000);
+		       			guardarCookie('nivel', "2");
 		       		}
+			       		window.location.assign("index.php");
 		       },
 		       error: function (request, status, error) {
 		            console.log("\n\n*** Error AJAX ***\n\n" + error);
