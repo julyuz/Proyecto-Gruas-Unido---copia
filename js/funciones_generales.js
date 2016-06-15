@@ -22,7 +22,7 @@ function guardarCookie(nombre, valor)
   document.cookie = nombre +"="+ valor +" expires="+caduca;
 
   var misCookies = document.cookie;
-  alert("Guardada la cookie: " + misCookies);
+  //alert("Guardada la cookie: " + misCookies);
 }
 
 function leerCookie(nombre)
@@ -40,7 +40,7 @@ function leerCookie(nombre)
   }
   var igual = miCookie.indexOf("=");
   var valor = miCookie.substring(igual + 1);
-  alert("valor de cookie: " + nombre +" = " + valor);
+  console.log("metodo leerCookie() -> valor de cookie: " + nombre +" = " + valor);
   return valor;
 }
 
