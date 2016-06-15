@@ -167,10 +167,9 @@
 			<a class="dropdown-button" href="#!" data-activates="resenas">Reseñas<i class="material-icons right">arrow_drop_down</i></a></li>
 			<li class = "menu_0opacity" id ="li_usuarios">
 			<a class="dropdown-button" href="#!" data-activates="usuarios">Usuarios<i class="material-icons right">arrow_drop_down</i></a></li>
-
-
-
-
+			<li class="menu_0opacity" id="li_cerrar_sesion">
+				<a href="login/cerrar.php">Cerrar sesión</a>
+			</li>
 	      </ul>
 
 	    <!-- Menú para móviles -->
@@ -193,6 +192,10 @@
 
 			<li id ="li_usuariosMovil">
 			<a class="dropdown-button" href="#!" data-activates="usuariosMovil">Usuarios<i class="material-icons right">arrow_drop_down</i></a>
+			</li>
+
+			<li class="menu_0opacity" id="li_cerrar_sesion">
+				<a href="login/cerrar.php">Cerrar sesión</a>
 			</li>
 
 
