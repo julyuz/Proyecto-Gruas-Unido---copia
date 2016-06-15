@@ -38,8 +38,8 @@
 				//echo "CORRECTO";
 				*/
 			}else{
-				//header("Location: ../iniciar.php?error=datos no validos");
 				echo "Datos invalidos";
+				header("Location: ../iniciar.php?error=datos no validos");
 			}
 
 			break;
