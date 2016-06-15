@@ -1,0 +1,714 @@
+Sobre tablas***
+
+   AUTORIDADES***
+alter table autoridades
+change codigo
+id_autoridad int(11) not null primary key
+
+alter table autoridades
+change tel_jefe
+tel_jefe varchar(13) null
+
+alter table autoridades
+change tel_contacto1
+tel_contacto1 varchar(13) null
+
+alter table autoridades
+change tel_contacto2
+tel_contacto2 varchar(13) null
+
+alter table autoridades
+change tel_contacto3
+tel_contacto3 varchar(13) null
+
+alter table autoridades
+change tel_dependencia
+tel_dependencia varchar(13) null
+
+alter table autoridades
+change id_autoridad
+id_autoridad int not null auto_increment
+
+
+alter table autoridades
+change logo_dependencia
+logo_dependencia varchar(150) null
+
+***** Insertando datos de ejemplo
+insert into autoridades (nombre,jefe,tel_jefe,puesto,contacto1,tel_contacto1,
+          contacto2,tel_contacto2,contacto3,tel_contacto3,tel_dependencia,logo_dependencia)
+          values ('$nombre','$jefe','$tel_jefe','$puesto','$contacto1','$telcontacto1',
+          '$contacto2','$telcontacto2','$contacto3','$telcontacto3','$teldependenc','$logodependencia')
+
+update autoridades set nombre='$nombreActualizar', jefe='$jefeActualizar',
+              tel_jefe='$teljActualizar', puesto='$puestoActualizar', contacto1='$contacto1Actualizar', tel_contacto1='$telcontacto1Actualizar',
+              contacto2='$contacto2Actualizar', tel_contacto2='$telcontacto2Actualizar',
+              contacto3='$contacto3Actualizar', tel_contacto3='$telcontacto3Actualizar',
+              tel_dependencia='$teldependenciaActualizar', logo_dependencia='$logodependenciaActualizar'
+              where id_autoridad=4
+
+
+   CLIENTES***
+alter table clientes
+change codigo
+id_cliente int(11) not null primary key
+
+alter table clientes
+change correo
+correo varchar(70) null
+
+alter table clientes
+change tel_fijo
+tel_fijo varchar(13) null
+
+alter table clientes
+change tel_celular
+tel_celular varchar(13) null
+
+alter table clientes
+change calle
+calle varchar(40) not null
+
+alter table clientes
+change codigo_postal
+codigo_postal varchar(6) not null
+
+alter table clientes
+change num_exterior
+num_exterior varchar(5) not null
+
+alter table clientes
+change num_interior
+num_interior varchar(5) null
+
+alter table clientes
+change tel_contacto1
+tel_contacto1 varchar(13) not null
+
+alter table clientes
+change tel_contacto2
+tel_contacto2 varchar(13) not null
+
+alter table clientes
+change id_cliente
+id_cliente int not null auto_increment
+
+*** Insertando algunos datos
+insert into clientes (nombre,correo,tel_fijo,tel_celular,calle,colonia,codigo_postal,num_exterior
+          ,num_interior,ciudad,contacto1,tel_contacto1,contacto2,tel_contacto2,curp,rfc) 
+values('Julio Alvarado','julyuzc@gmail.com','5236617','4521452435','Revolución','San Juan','60040',
+       '92','0','Uruapan','Carlo','5235562','Cesar','4524156372','AAMJ921010HMNLRL00','AAMJ921019')
+
+
+
+   DIAGRAMAS***  ( YA NO EXISTE ) *** !!!
+alter table diagramas 
+add column 
+id_descripcion int(11)
+
+alter table diagramas
+drop column
+id_descripcion
+
+alter table diagramas 
+add foreign
+key 
+id_descripcion int(11)
+
+   DESCRIPCIONES  ( YA NO EXISTE ) *** !!!
+alter table descripciones
+add column
+id_diagrama int(10)
+
+alter table descripciones
+add foreign
+key(id_diagrama) references diagramas(id_diagrama)
+
+alter table clientes 
+add column 
+curp varchar(20) null
+
+alter table clientes 
+add column 
+rfc varchar(20) null
+
+
+   FOTOS***
+alter table fotos
+add column 
+thumbnail varchar(50) null
+
+alter table fotos
+add column 
+id_foto int null primary key auto_increment
+
+alter table fotos
+change codigo
+id_fotos int(11) not null
+
+alter table fotos
+change id_fotos
+id_foto int(11) not null
+
+alter table fotos
+change nombre
+ruta_img varchar(100) not null
+
+alter table fotos
+change ruta_img
+ruta_img varchar(100) not null
+
+alter table fotos
+drop column
+noserie_auto
+
+alter table fotos
+change placas
+placas varchar(15) not null
+
+alter table fotos
+drop column placas
+
+alter table fotos 
+add foreign key(placas) 
+references vehiculos(placas)
+
+alter table fotos
+change placas
+placas varchar(10) not null
+
+alter table fotos
+change id_foto
+id_foto int not null auto_increment
+
+alter table fotos 
+add index(placas)
+
+alter table vehiculos 
+add index(placas)
+
+alter table fotos
+add constraint clfVehiculos_Fotos
+foreign key(placas)
+references vehiculos(placas)
+
+alter table fotos
+add id_recibo_efectivo
+int not null 
+
+alter table fotos
+add foreign key
+(id_recibo_efectivo) references recibos_efectivo(id_recibo_efectivo)
+
+alter table fotos
+drop column id_recibo_efectivo
+
+alter table fotos
+change thumbnail
+thumbnail varchar(110) null
+
+
+ALTER TABLE fotos 
+ADD CONSTRAINT placas 
+FOREIGN KEY (placas) 
+REFERENCES vehiculos (placas) 
+ON DELETE NO ACTION 
+ON UPDATE NO ACTION ; 
+
+
+  GRUAS***
+******Insertando datos de ejemplo
+insert into gruas (placas,tipo,marca,modelo,numero, id_operador)
+values('placas','tipo','marca','modelo','numero', 1)
+
+insert into gruas (placas,tipo,marca,modelo,numero, id_operador)
+values('pla','ti','ma','mod','num', 1)
+
+update gruas set placas='$plcacas',marca='$marcaac',
+modelo='$modac',numero='$numac'
+
+
+create table if not exists tab1 (
+  id varchar(5) not null,
+  nombre varchar(10) not null,
+  PRIMARY KEY (`id`, `nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+create table if not exists tab2 (
+  id varchar(5) not null,
+  nombre varchar(10) not null,
+  PRIMARY KEY (`id`, `nombre`),
+  FOREIGN KEY (`nombre`) references tab1(`nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+
+   IMPORTES***
+alter table importes
+add foreign 
+key(id_cliente) references clientes(id_cliente)
+
+alter table importes
+drop column id_importes
+
+alter table importes
+add column id_importe int(11) not null primary key auto_increment
+
+
+   OPERADORES***
+CREATE TABLE IF NOT EXISTS `operadores` (
+  `id_operador` int(10) NOT NULL AUTO_INCREMENT,
+  `codigo` int(10) NOT NULL,
+  `nombre` varchar(80) NOT NULL,
+  `licencia` varchar(30) NOT NULL,
+  `tipo_licencia` varchar(20) NOT NULL,
+  `no_licencia` varchar(15) NOT NULL,
+  `vigencia_licencia` varchar(15) NOT NULL,
+
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_operador`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+alter table operadores
+drop column codigo
+
+alter table operadores
+drop column id_operador
+
+alter table operadores
+add column 
+id_operador int(11) not null primary key auto_increment
+
+
+****** Insertando datos de ejemplo
+insert into operadores (nombre,licencia,tipo_licencia,no_licencia,vigencia_licencia)
+values('$nombre22','$licencia22','$tipo22','$numero22','$vigencia22')
+
+insert into operadores (nombre,licencia,tipo_licencia,no_licencia,vigencia_licencia)
+values('$nomb','$lic','$tip','$nu','$vige')
+
+   REMOLQUES***
+alter table remolques
+add constraint id_remolques
+primary key(id_remolques, no_siniestro)
+
+alter table remolques
+add foreign
+key(no_siniestro) references vehiculos(no_siniestro)
+
+
+**** Insertando algunos datos de ejemplo:
+insert into remolques (tipo,marca,modelo,capacidad,serie,tipo_carroceria,pa,ac,no_siniestro)
+values('tipo','marca','modelo','capacidad','serie','tipo_carroceria','pa','ac',no_siniestro) 
+
+
+   SALVAMENTOS***
+alter table salvamentos
+drop column
+maniobra_de
+
+alter table salvamentos
+add column
+maniobras varchar(20)
+
+
+   VEHICULOS***
+alter table vehiculos
+add column
+no_siniestro int(11)
+
+alter table vehiculos
+add constraint codigo
+primary key(codigo, no_siniestro)
+
+alter table vehiculos
+drop column codigo
+
+alter table vehiculos
+drop column no_siniestro
+
+alter table vehiculos
+change placas
+placas varchar(15) not null
+
+alter table vehiculos
+drop column placas
+
+alter table vehiculos
+add column placas int(11) not null primary key
+
+alter table vehiculos
+change placas
+placas int(11) not null
+
+alter table vehiculos
+change fecha_ingreso
+fecha_ingreso date not null
+
+alter table vehiculos
+change fecha_salida
+fecha_salida date not null
+
+alter table vehiculos
+change tel_ajustador
+tel_ajustador varchar(13) not null
+
+alter table vehiculos
+change placas
+placas varchar(10) not null unique
+
+alter table vehiculos
+add column
+id_cliente int not null
+
+alter table vehiculos
+add column 
+pa varchar(30) null
+
+alter table vehiculos
+add column 
+ac varchar(30) null
+
+alter table vehiculos
+add column 
+no_siniestro varchar(10) null
+
+
+***********Insertando datos de ejemplo
+insert into vehiculos (placas,marca,tipo,color,modelo,num_serie_vehiculo,
+num_serie_motor,observacion,autoridad_intervino,motivo,fecha_ingreso,
+fecha_salida,aseguradora,ajustador,tel_ajustador,num_economico,razon_social,
+pa,ac, no_siniestro, id_cliente)
+values('$placas','$marca','$tipo','$color','$modelo',
+'$num_serie_vehiculo','$num_serie_motor','$observacion','$autoridad_intervino',
+'$motivo','2016-04-27','2016-04-28','$aseguradora','$ajustador',
+'$tel_ajustador','$num_economico','$razon_social','$pa','$ac', 200, 2)
+
+insert into vehiculos (placas,marca,tipo,color,modelo,num_serie_vehiculo,
+num_serie_motor,observacion,autoridad_intervino,motivo,fecha_ingreso,
+fecha_salida,aseguradora,ajustador,tel_ajustador,num_economico,razon_social,
+pa,ac, no_siniestro, id_cliente)
+values('$placas222','$marca','$tipo','$color','$modelo',
+'$num_serie_vehiculo','$num_serie_motor','$observacion','$autoridad_intervino',
+'$motivo','2016-04-27','2016-04-28','$aseguradora','$ajustador',
+'$tel_ajustador','$num_economico','$razon_social','$pa','$ac', 300, 6)
+
+
+*** Sobre las tablas de cada Documento ***
+
+   RESENAS	
+CREATE TABLE IF NOT EXISTS `resenas` (
+  `id_resena` int(10) NOT NULL AUTO_INCREMENT,
+  `folio` int(10) NOT NULL,
+  `pavimento_acotamiento` varchar(2) NOT NULL,
+  `fuera_camino` varchar(2) NOT NULL,
+  `ubicacion` varchar(2) NOT NULL,
+  `declive` varchar(2) NOT NULL,
+  `profundidad` varchar(25) DEFAULT NULL,
+  `longitud` varchar(25) DEFAULT NULL,
+  `angulo` varchar(10) DEFAULT NULL,
+  `distancia` varchar(25) DEFAULT NULL,
+  `pendiente` varchar(10) DEFAULT NULL,
+  `vehiculo_atascado` varchar(2) DEFAULT NULL,
+  `peso` varchar(10) DEFAULT NULL,
+  `mts` varchar(10) DEFAULT NULL,
+  `ejes_enterrados` varchar(10) DEFAULT NULL,
+  `lado_izq` varchar(10) DEFAULT NULL,
+  `lado_der` varchar(10) DEFAULT NULL,
+  `ambos_lados` varchar(10) DEFAULT NULL,
+  `roca` varchar(5) DEFAULT NULL,
+  `tierra` varchar(5) DEFAULT NULL,
+  `grava` varchar(5) DEFAULT NULL,
+  `arena` varchar(5) DEFAULT NULL,
+  `lodo` varchar(5) DEFAULT NULL,
+  `malesa` varchar(5) DEFAULT NULL,
+  `otros` varchar(5) DEFAULT NULL,
+  `horas` varchar(20) DEFAULT NULL,
+  `num_personas` varchar(5) DEFAULT NULL,
+  `cambiar_llanta` varchar(5) DEFAULT NULL,
+  `desajustar_frenos` varchar(5) DEFAULT NULL,
+  `amarrar_mancuerna` varchar(5) DEFAULT NULL,
+  `destrabar_remolque` varchar(5) DEFAULT NULL,
+  `cortar_piezas` varchar(5) DEFAULT NULL,
+  `retirar_piezas` varchar(5) DEFAULT NULL,
+  `ubicar_muelles` varchar(5) DEFAULT NULL,
+  `acomodar_carroceria` varchar(5) DEFAULT NULL,
+  `amarrar_eje_delantero` varchar(5) DEFAULT NULL,
+  `ronsear` varchar(5) DEFAULT NULL,
+  `jalar` varchar(5) DEFAULT NULL,
+  `levantar` varchar(5) DEFAULT NULL,
+  `acostar` varchar(5) DEFAULT NULL,
+  `desvoltear` varchar(5) DEFAULT NULL,
+  `descripcion` varchar(250) NOT NULL,
+
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_resena`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+   SALVAMENTOS
+CREATE TABLE IF NOT EXISTS `salvamentos` (
+  `id_salvamento` int(10) NOT NULL AUTO_INCREMENT,
+  `folio` int(10) NOT NULL,
+  `grua_de` varchar(20) NOT NULL,
+  `grua_hasta` varchar(20) NOT NULL,
+  `grua_total` varchar(20) NOT NULL,
+  `manual_de` varchar(20) NOT NULL,
+  `manual_hasta` varchar(20) NOT NULL,
+  `manual_total` varchar(20) NOT NULL,
+  `custodia_de` varchar(20) NOT NULL,
+  `custodia_hasta` varchar(20) NOT NULL,
+  `custodia_total` varchar(20) NOT NULL,
+  `tipo_grua` varchar(20) NOT NULL,
+  `maniobras` varchar(20) DEFAULT NULL,
+  `banderazo` varchar(20) NOT NULL,
+  `km_recorridos` varchar(10) NOT NULL,
+  `recargo_remision` varchar(10) NOT NULL,
+  `corralon_taller` varchar(20) NOT NULL,
+  `servicio_particular` varchar(20) NOT NULL,
+  `descripcion` varchar(250) NOT NULL,
+
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_salvamento`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+*--- JULIO ---*
+
+   MEMORIAS_GRAFICAS***
+
+CREATE TABLE IF NOT EXISTS `memorias_graficas` (
+  `id_memoria_grafica` int(11) NOT NULL auto_increment,
+  `fecha_documento` date NOT NULL,
+  `fecha_ingreso` date NOT NULL,
+  `placas` varchar(10) NOT NULL,
+  `cantidad_fotos` varchar(10) NULL,
+
+`created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_memoria_grafica`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+alter table memorias_graficas
+drop column id_memoria_grafica
+
+alter table memorias_graficas
+ drop column placas
+
+alter table memorias_graficas
+add column 
+placas int(11) not null
+
+alter table memorias_graficas
+add foreign key(placas) references vehiculos(placas) 
+ 
+alter table memorias_graficas
+change column fecha_documento
+fecha_documento date not null
+
+alter table memorias_graficas
+change column fecha_ingreso
+fecha_ingreso date not null
+
+ alter table memorias_graficas
+  drop primary key
+
+SET FOREIGN_KEY_CHECKS = 0;
+ALTER TABLE memorias_graficas DROP FOREIGN KEY fkId;
+ALTER TABLE memorias_graficas DROP INDEX fkId;
+ALTER TABLE memorias_graficas CHANGE COLUMN changes
+ALTER TABLE memorias_graficas ADD CONSTRAINT fkId FOREIGN KEY fkId (column) REFERENCES
+SET FOREIGN_KEY_CHECKS = 1;
+
+alter table memorias_graficas
+change column placas
+placas varchar(10) not null
+
+
+******Insertando datos de ejemplo
+
+INSERT into memorias_graficas
+          (placas,fecha_ingreso,fecha_documento,cantidad_fotos)
+          values ('$placas','$fecha_ingreso','$fecha_documento','$img')
+
+UPDATE memorias_graficas SET cantidad_fotos ='2',placas='$placas',
+              fecha_ingreso='2016-05-12',fecha_documento='2016-05-20'
+              WHERE id_memoria_grafica = 5
+
+    RECIBOS_EFECTIVO***
+
+CREATE TABLE IF NOT EXISTS `recibos_efectivo` (
+  `id_recibo_efectivo` int(11) NOT NULL AUTO_INCREMENT,
+  `cantidad_numero` varchar(50) NOT NULL,
+  `nombre_cliente` varchar(50) NOT NULL,
+  `cantidad_letra` varchar(250) NOT NULL,
+  `marca` varchar(15) NOT NULL,
+  `tipo` varchar(15) NOT NULL,
+  `modelo` varchar(20) NOT NULL,
+  `placas` int(11) NOT NULL,
+  `fecha_ingreso` date NOT NULL,
+  `fecha_documento` date NOT NULL,
+  `descripcion` varchar(250) NOT NULL,
+  `receptor` varchar(50) NOT NULL,
+
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_recibo_efectivo`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+alter table recibos_efectivo
+drop column id_recibo_efectivo
+
+alter table recibos_efectivo
+drop column placas
+
+alter table recibos_efectivo
+add column
+placas int(10) not null primary key 
+
+alter table recibos_efectivo
+add foreign key(placas) 
+references vehiculos(placas) 
+
+alter table recibos_efectivo
+change fecha_ingreso
+fecha_ingreso date not null
+
+alter table recibos_efectivo
+change fecha_documento
+fecha_documento date not null
+
+alter table recibos_efectivo
+add foreign
+key(placas) references vehiculos(placas)
+
+alter table recibos_efectivo
+change placas
+placas int(11) not null
+
+
+******Insertando datos de ejemplo
+
+INSERT into recibos_efectivo (nombre_cliente,cantidad_numero,cantidad_letra,
+          placas,marca,tipo,modelo,fecha_ingreso,fecha_documento,receptor,descripcion,
+	  id_vehiculo, id_cliente)
+
+          values ('$nombre','$cantnumero','$cantidad_letra','$placas','$marca','$tipo',
+          '$modelo','$fecha_ingreso','$fecha_documento','$receptor','$descripcion',
+	(select id_vehiculo from vehiculos where placas = '$placas'),
+	(select id_cliente from clientes where nombre = 'Julio') )
+        
+
+UPDATE recibos_efectivo SET
+	 nombre_cliente ='$nombreActualizar',cantidad_numero='$cantnumeroActualizar',
+              cantidad_letra='$cantletraActualizar',placas='$placasActualizar',marca='$marcaActualizar',tipo='$tipoActualizar',
+              modelo='$modeloActualizar',fecha_ingreso='$fecha_ingresoActualizar',fecha_documento='$fecha_documentoActualizar',
+              receptor='$receptorActualizar',descripcion='$descripcionActualizar' 
+              WHERE id_recibo_efectivo = 4
+
+SELECT * from recibos_efectivo
+          where nombre_cliente LIKE '2%'
+          || id_recibo_efectivo='2'	
+
+UPDATE recibos_efectivo
+     	SET cantidad_numero='55',
+              cantidad_letra='cinco cinco'
+              where fecha_ingreso LIKE '%2016%'
+
+UPDATE recibos_efectivo
+     	SET cantidad_numero='3333',
+              cantidad_letra='treinta y tres tes tres'
+              where nombre_cliente LIKE '%nombre%'
+
+
+    RECIBOS_VEHICULO***
+CREATE TABLE IF NOT EXISTS `recibos_vehiculo` (
+  `id_recibo_vehiculo` int(11) NOT NULL AUTO_INCREMENT,
+  `suscriptor` varchar(50) NULL,
+  `marca` varchar(15) NOT NULL,
+  `tipo` varchar(15) NOT NULL,
+  `modelo` varchar(20) NOT NULL,
+  `color` varchar(15) NOT NULL,
+  `placas` int(11) NOT NULL,
+  `fecha_ingreso` date NOT NULL,
+  `fecha_documento` date NOT NULL,
+  `autoridad` varchar(50) NOT NULL,
+  `nombre_cliente` varchar(50) NOT NULL,
+
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_recibo_vehiculo`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+alter table recibos_vehiculo
+drop column id_recibo_vehiculo
+
+alter table recibos_vehiculo
+drop column placas
+
+alter table recibos_vehiculo
+change fecha_ingreso
+fecha_ingreso date not null
+
+alter table recibos_vehiculo
+change fecha_documento
+fecha_documento date not null
+
+alter table recibos_vehiculo
+add column 
+id_recibo_vehiculo int(11) NOT NULL AUTO_INCREMENT primary key
+
+alter table recibos_vehiculo
+add column placas varchar(10) not null
+
+alter table recibos_vehiculo
+add foreign
+key(placas) references vehiculos(placas)
+
+
+*******Insertando datos de ejemplo
+
+INSERT into recibos_vehiculo (suscriptor, marca,tipo,modelo, color,
+            placas, fecha_ingreso,fecha_documento, autoridad, nombre_cliente,
+            id_vehiculo, id_cliente, id_autoridad)
+          values ('$suscriptor','$marca','$tipo','$modelo','$color',
+           '$placas', '$fecha_ingreso','$fecha_documento','$autoridad','$nombre', 
+           (SELECT id_vehiculo from vehiculos where placas = '$placas'),
+           (SELECT id_cliente from clientes where nombre = 'julio'),	   
+	   (SELECT id_autoridad from autoridades where nombre = 'C') )
+
+
+INSERT into recibos_vehiculo(suscriptor, marca,tipo,modelo, color,
+            placas, fecha_ingreso,fecha_documento, autoridad, nombre_cliente)
+          values ('$suscriptor','$marca','$tipo','$modelo','$color',
+           '$placas', '$fecha_ingreso','$fecha_documento','$autoridad','$nombre')
+
+
+UPDATE recibos_vehiculo SET nombre_cliente ='$nombreActualizar',suscriptor='$suscriptor',
+              placas='$placasActualizar',marca='$marcaActualizar',tipo='$tipoActualizar',
+              modelo='$modeloActualizar',color = '$colorActualizar', fecha_ingreso='$fecha_ingresoActualizar',
+              fecha_documento='$fecha_documentoActualizar',autoridad='$autoridadActualizar' 
+              WHERE id_recibo_vehiculo = 1
+
+
+
+
+	*** Borrando tablas que dependen de otras, para agregarle el 
+	    ON UPDATE CASCADE ON DELETE CASCADE a las FK
+drop table fotos
+drop table memorias_graficas
+drop table recibos_vehiculo
+drop table recibos_efectivo
+drop table gruas
+drop table vehiculos
+
+
+
+
+
+
+

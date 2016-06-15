@@ -1,0 +1,6 @@
+Cuenta proyecto gruas tec:
+- Nombre: Proyecto
+- Apellido: GruasTec
+- Usuario: proyecto.gruastec@gmail.com
+- Pass: gruastec123
+- Fecha Nac: 26 Julio 1992

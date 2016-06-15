@@ -1,0 +1,28 @@
+
+CREATE TABLE FACTURA(
+NUMFACTURA  INT         NOT NULL,
+FECHA       DATE        NOT NULL,
+IDCLIENTE   INT         NOT NULL,
+PRIMARY KEY(NUMFACTURA),
+FOREIGN KEY(IDCLIENTE)REFERENCES CLIENTE(ID)
+ 
+
+);
+Al crear la tabla factura vemos que primero definimos parcialmente la llave foránea IDCLIENTE. 
+Luego usamos la restricción FOREIGN KEY para indicar que este campo es el designado para ser
+la llave foránea y seguido usamos la clausula REFERENCES que vincula a IDCLIENTE con la llave 
+principal de la tabla CLIENTE.
+Si quisiéramos agregar la llave foránea o borrarla después de haber creado la tabla usamos ALTER TABLE:
+Añadir
+
+ALTER TABLE FACTURA
+ADD FOREIGN
+KEY (CLIENTE_ID) REFERENCES CLIENTE (ID);
+
+Borrar
+
+ALTER TABLE FACTURA
+DROP FOREIGN KEY;
+
+
+

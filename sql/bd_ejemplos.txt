@@ -1,0 +1,53 @@
+
+
+CREATE TABLE IF NOT EXISTS `clientes` (
+  `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  `num_exterior` varchar(5) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_cliente`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+INSERT INTO `clientes` (`num_exterior`, `nombre`) VALUES
+(98, 'ALVARADO')
+
+INSERT INTO `clientes` (`num_exterior`, `nombre`) VALUES
+(120, 'Julio')
+
+drop table clientes
+
+delete from clientes where id_cliente = 2
+
+CREATE TABLE IF NOT EXISTS `vehiculos` (
+  `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT,
+  `placas` varchar(10) NOT NULL UNIQUE,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_cliente` int(11) NOT NULL,
+  PRIMARY KEY (`id_vehiculo`),
+  FOREIGN KEY (`id_cliente`) REFERENCES clientes(`id_cliente`)
+
+  ON UPDATE CASCADE ON DELETE CASCADE
+	ON DELETE RESTRICT ( para evitar que se elimine en caso de que haya registros con esa relacion )
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+
+drop table vehiculos
+
+select * from vehiculos
+
+
+alter table vehiculos
+change placas
+placas varchar(10) not null
+
+INSERT INTO `vehiculos` (`placas`, `id_cliente`) VALUES
+('abcd', 2)
+
+INSERT INTO `vehiculos` (`placas`, `id_cliente`) VALUES
+('xzyq', 2)
+
+INSERT INTO `vehiculos` (`placas`, `id_cliente`) VALUES
+('cuatro', 2)
+
+select clientes.nombre, vehiculos.placas from vehiculos;
+select clientes.nombre, vehiculos.placas where clientes.id_cliente = vehiculos.id_cliente

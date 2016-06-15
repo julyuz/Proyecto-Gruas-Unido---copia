@@ -1,0 +1,106 @@
+.header{
+	background-color: #5CC6D0 !important;
+	text-align: center;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    width: 100%;
+}
+
+body{
+	text-align: center;
+    font-weight: 100;
+}
+
+
+.menu{
+    font-weight: 700;
+    margin: 0 .3em;
+    font-size: 2em;
+    letter-spacing: -1px;
+    /*
+    display:inline;
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+    */
+}
+
+.menu:hover {
+    opacity: 0.7;
+    color: #365BAB;
+}
+
+.menu_0opacity{
+    font-weight: 700;
+    margin: 0 .3em;
+    font-size: 2em;
+    letter-spacing: -1px;
+    /*
+    display:inline;
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+    */
+}
+
+.title-user{
+    text-decoration: none;
+    margin: .9em 0 0 0;
+    padding: 0;
+    font-weight: 300;
+    font-size: 1.4em;
+    line-height: 1.4;
+    -webkit-backface-visibility: hidden;
+    color: #ffffff;
+}
+
+
+.title-type{
+    style:none;
+    font-size: 1em;
+    margin: .1em 0 .6em;
+    display: inline-block;
+    font-style: italic;
+    padding: 6px 10px;
+    background: #A53692;
+    color: white;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.logo {
+border-radius: 100px;
+}
+
+.title{
+    color:  #5CC6D0 !important;
+    font-weight: 10;
+    font-size: 28px;
+    float: left;
+    margin-left: 10px;
+}
+
+.header-fixed {
+    height: 90px;
+    position:fixed;
+    z-index:1000;
+    top:0;
+    left:0;
+    box-shadow:0px 4px 3px rgba(0,0,0,.5);
+}
+
+.menu-fixed {
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+}
+
+.dia-vencido{
+    color: #FF341A;
+    font-style: bold;
+}
+
+#pointer:hover{ cursor: pointer; }
+
+/* Estilos para que se vea el título en cada imagen del slider */
+.slider li { background-color: black; }
+.slider li img { opacity: .6; }

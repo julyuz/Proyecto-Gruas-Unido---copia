@@ -1,0 +1,4 @@
+Para eliminar una clave primaria usamos:
+
+ alter table libros
+  drop primary key;

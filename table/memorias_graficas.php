@@ -1,0 +1,643 @@
+<?php
+include('conexion.php');
+//include 'funciones_generales.php';
+
+/***  MG = Memoria Gráfica  ***/
+
+$metodo = $_GET['met'];
+
+switch ($metodo) {
+
+  // Caso para verificar si fueron enviadas correctamente las imagenes de la MG creada en un array por JSON
+  case 'ver_imgs':
+    # code...
+    if( isset( $_POST["data"] ))
+    {
+      $data = json_decode( stripslashes( $_POST["data"] ) );
+      echo $data;
+    }
+    else {
+      die("No valido");
+    }
+
+    break;
+
+  case 'create_pdf_MG':
+    # code...
+    require('../fpdf181/fpdf.php');
+
+    class PDF extends FPDF
+    {
+        /*
+            ** Medidas de un PDF **
+            Anchura : 612 px.
+            Altura : 792 px.
+            Resol.: 72 dpi
+        */
+
+        // Cabecera de página
+        function Header()
+        {
+            $x = 190; $y = 0; $salto = 5; $margen_izq = 5;
+
+            // Logo izquierda ( águila )
+            $this->Image('../img/LOGO CLASICO29052015_0000.jpg',$margen_izq,3,35);
+
+            // Titulo
+            /*$this->SetFont('Arial', 'B', 10);
+            $this->SetXY(50, 5);
+            $this-> Multicell($x - 80, 5, utf8_decode('GRUAS MANCERA
+BOULEVARD INDUSTRIAL NO. 5700
+COL. CALZONTZIN (ENFRENTE DE PEMEX)
+TELS(452)5281045, 5249196 Correo: gmancerah@hotmail.com
+URUAPAN, MICHOACAN'), 1, 'C');*/
+
+            // Titulo
+            $this->SetFont('Arial','B',18); // Arial bold 18
+            $this->Cell($x,$y,'GRUAS MANCERA',0,0,'C');
+            $this->Ln(7); // Salto de línea
+            $this->SetFont('Arial','B',10); // Arial bold 10
+            $this->Cell($x,$y,'BOULEVARD INDUSTRIAL NO. 5700',0,0,'C');
+            $this -> Ln($salto); // Salto de línea
+            $this -> Cell($x,$y, 'COL. CALZONTZIN  (ENFRENTE DE PEMEX)', 0, 0, 'C');
+            $this -> Ln($salto); // Salto de línea
+            $this -> Cell($x, $y, 'TELS(452)5281045, 5249196 Correo: gmancerah@hotmail.com    ', 0, 0, 'C');
+            $this -> Ln($salto); // Salto de línea
+            $this -> Cell($x, $y, 'URUAPAN, MICHOACAN', 0, 0,'C');
+
+            // Logo derecha ( remolque )
+            $this ->Image('../img/LOGO PLATAFORMA29052015_0000.jpg', ($x - 30), 3, 45);
+
+        }
+
+        // Pie de página
+        function Footer()
+        {
+
+            $this -> SetFont('Arial', '', 10);
+            $this -> SetY(-55);
+            $this -> MultiCell(100, 5, utf8_decode('ELABORO:
+
+
+
+ING. GERARDO ALFONSO MANCERA HUANTE
+REPRESENTANTE DE GRUAS MANCERA
+TEL. CEL. 4525257450'), 0, 'J');
+
+            // Posición: a 1,5 cm del final
+            $this->SetY(-15);
+            // Arial italic 8
+            $this->SetFont('Arial','',8);
+            // Número de página
+            $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+        }
+    } // Fin class PDF
+
+    // Creación del objeto de la clase heredada
+    $pdf = new PDF();
+    $pdf->AliasNbPages();
+    $pdf->AddPage();
+    $pdf->SetFont('Times','',12);
+    $pdf -> Ln(30);
+
+
+    // Creamos variables 'x' e 'y' para ubicar las imagenes
+    /*$xImg = 100; $yImg = 100; $anImg = 50; $alImg = 50;
+    // Recibimos el array 'data' con las imagenes subidas, para ubicarlas en el pdf que se va a crear
+    if( isset( $_POST["data"] ))
+    {
+      $data = json_decode( stripslashes( $_POST["data"] ) );
+
+      for ($i = 0; $i < count($data); $i++)
+      {
+          $pdf ->Image('../img/' .$data[$i], $xImg, $yImg, $anImg);
+          $yImg = $yImg + 120;
+
+      }
+    }
+    else {
+      die("Datos de imagenes no validos");
+    }*/
+
+    //for($i=1;$i<=40;$i++)
+      //  $pdf->Cell(0,10,'Imprimiendo línea número '.$i,0,1);
+    //$pdf->Output('I');
+
+    $fichero = 'Memoria_grafica.pdf';
+    $pdf->Output($fichero,'D');
+    /*$pdf2 = 'archivo.pdf';
+    header('Content-type: application/pdf');
+    //header('Content-Disposition: attachment; filename="'.$pdf2.'"');
+    readfile($pdf);*/
+
+    /*if (file_exists($fichero))
+    {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="'.basename($fichero).'"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($fichero));
+        readfile($fichero);
+        exit;
+    }*/
+    //echo $fichero;
+
+    break;
+
+    case 'get_photos_perMG':
+      # code...
+      header("Access-Control-Allow-Origin: *");
+
+      $placas     = $_POST["placas"];
+      $nombre = "";
+      $nombres;
+      $data = array();
+      foreach ($_FILES["imagenes_add"]["error"] as $clave => $error)
+      {
+          //if ($error == UPLOAD_ERR_OK)
+          //{
+              $nombre_tmp = $_FILES["imagenes_add"]["tmp_name"][$clave];
+              $nombre .= $_FILES["imagenes_add"]["name"][$clave];
+              //move_uploaded_file($nombre_tmp,
+                //"../js/img/subidas/$nombre");
+
+              $data[]= $_FILES["imagenes_add"]["name"][$clave];
+      }
+
+        //echo json_encode($data);
+        print_r($data);
+          //}
+        //echo "nombres: " .$nombre;
+
+        /*$id_MG = $_POST["id_MG"];
+          $conn = new mysqli("127.0.0.1", "root", "", "gruasmancera");
+            $result = $conn->query("SELECT ruta_img, placas FROM fotos WHERE id_memoria_grafica = '$id_MG'");
+            $resultado= "";
+            while($rs = $result->fetch_array(MYSQLI_ASSOC))
+            {
+                $item_name = $rs["ruta_img"];
+                $item_placas = $rs["placas"];
+
+                $check_pic = "img/subidas/$item_name";
+                if (file_exists($check_pic))
+                {
+                    //echo "<img src='img/subidas/$item_name' />";
+                    $resultado .= $item_name;
+                }
+                else{
+                  $resultado = "no existe la imagen: $item_name";
+                }
+
+            }
+            echo "\nResultado: " .$resultado;
+          */
+        break;
+
+    /*********** NO FUNCIONA ***************/
+    case 'get_photos_perMG_1':
+      # code...
+      header("Access-Control-Allow-Origin: *");
+
+        $id_MG = $_GET['id'];
+        $conn = new mysqli("127.0.0.1", "root", "", "gruasmancera");
+            $result = $conn->query("SELECT ruta_img, placas FROM fotos WHERE id_memoria_grafica = '$id_MG'");
+            $resultado= "";
+            while($rs = $result->fetch_array(MYSQLI_ASSOC))
+            {
+                $item_name = $rs["ruta_img"];
+                $item_placas = $rs["placas"];
+
+                $check_pic = "img/subidas/$item_name";
+                //if (file_exists($check_pic))
+                //{
+                    //echo "<img src='img/subidas/$item_name' />";
+                    $data = "<li><a href='img/subidas/$item_name' target='_blank'>
+                                <img src=\"img/subidas/$item_name\" class= 'responsive-img' height=250px alt='$item_placas' title='#$item_placas' />
+                            </a>
+                            <div class='caption center-align'>
+                                <h3>Auto con placas:</h3>
+                                <h5 class='light grey-text text-lighten-3'>$item_placas</h5>
+                            </div>
+                        </li>
+                    ";
+                    $resultado = $resultado . $data;
+                    /*print "<li><a href='img/subidas/$item_name' target='_blank'>
+                            <img src=\"img/subidas/$item_name\" class= 'responsive-img' height=250px alt='$item_placas' title='#$item_placas' />
+                              </a>
+                                  <div class='caption center-align'>
+                                      <h3>Auto con placas:</h3>
+                                      <h5 class='light grey-text text-lighten-3'>$item_placas</h5>
+                                  </div>
+                              </li>
+                    ";*/
+                //}
+              /*else { $data = "<strong>No existe la imagen:$item_name </strong>";
+                        $resultado = $resultado . $data;
+                  //print "<strong>No existe la imagen:$item_name </strong>";
+                }*/
+            }
+            echo $resultado;
+
+          /*$id_MG = $_GET["id_MG"];
+            $result = $conn->query("SELECT ruta_img, placas FROM fotos
+                WHERE id_memoria_grafica = '$id_MG'");
+            $rutas= array();
+
+            //printf("La seleccion devolvio %d filas.\n",
+              //      mysqli_num_rows($result) + "\n\n"
+                //);
+
+            while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+                $data=array(
+                            $rs["ruta_img"],
+                            $rs["placas"]
+                            );
+                        //printf("rs[id_recibo_efectivo]: " + $rs["id_recibo_efectivo"]);
+                array_push($rutas,$data);
+            }
+            echo json_encode($rutas);
+            $conn->close();
+          */
+        break;
+
+    case 'add_add': // Opcion del metodo de agregar memorias graficas ( boton de mas )
+        header("Access-Control-Allow-Origin: *");
+        $id = $_GET["cont_inputs"]; //Obtener la cantidad de inputs que hay en la sección para subir imágenes
+
+              $campo_extra =
+                    '<div class ="row">
+                        <div class="file-field input-field col s12">
+                          <div class="btn blue">
+                            <span>Seleccione la imagen</span>
+                            <input type="file" name="imagenes_add[]" id="imagenes_add_' .$id .'" accept= "image/*" >
+                          </div>
+
+                          <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                          </div>
+                        </div>
+                      </div>';
+
+        echo ($campo_extra);
+
+        # code...
+    break;
+
+    case 'add_mod': // Opcion del metodo de modificar memorias graficas ( boton de mas )
+        header("Access-Control-Allow-Origin: *");
+        $id = $_GET["cont_inputs"]; //Obtener la cantidad de inputs que hay en la sección para subir imágenes
+
+        $campo_extra =
+         '<div class ="row">
+            <div class="file-field input-field col s12">
+              <div class="btn blue">
+                <span>Seleccione la imagen </span>
+                <input type="file" name="imagenes_mod[]" id="imagenes_mod_' .$id .'" accept= "image/*">
+              </div>
+
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          </div>';
+
+        echo ($campo_extra);
+
+        # code...
+    break;
+
+    case "show":///-----------------Mostrar Datos
+        header("Access-Control-Allow-Origin: *");
+            $result = $conn->query("SELECT * FROM memorias_graficas");
+            $memorias_graficas= array();
+
+            //printf("La seleccion devolvio %d filas.\n",
+              //      mysqli_num_rows($result) + "\n\n"
+                //);
+
+            while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+                $data=array(
+                            $rs["id_memoria_grafica"],
+                            $rs["placas"],
+                            $rs["fecha_ingreso"],
+                            $rs["fecha_documento"],
+                            $rs["cantidad_fotos"]
+                            );
+                        //printf("rs[id_recibo_efectivo]: " + $rs["id_recibo_efectivo"]);
+                array_push($memorias_graficas,$data);
+            }
+            echo json_encode($memorias_graficas);
+            $conn->close();
+        break;
+
+    case "store":///-----------------Guardar Datos
+        header("Access-Control-Allow-Origin: *"); // Duda
+        $img        = $_POST["img"];
+        $placas     = $_POST["placas"];
+        $fecha_ingreso     = $_POST["fecha_ingreso"];
+        $fecha_documento   = $_POST["fecha_documento"];
+
+        $result = $conn->query("SELECT id_vehiculo from vehiculos
+                  where placas = '$placas'");
+              while($rs = $result->fetch_array(MYSQLI_ASSOC) ) {
+                  $id_vehiculo = $rs["id_vehiculo"];
+              }
+
+        // ******cantidad_fotos obtenerlo de acuerdo a las fotos guardadas, como ejemplo
+        // voy a guardar un texto nadamas ( $img )*******
+        $conn->query("INSERT into memorias_graficas(placas,fecha_ingreso,fecha_documento,cantidad_fotos,id_vehiculo)
+          values ('$placas','$fecha_ingreso','$fecha_documento','$img','$id_vehiculo')");
+
+        $result = $conn->query("SELECT id_memoria_grafica from memorias_graficas
+              ORDER BY id_memoria_grafica desc ");
+              if($rs = $result->fetch_array(MYSQLI_ASSOC) ) {
+                  $id_MG= $rs["id_memoria_grafica"];
+              }
+
+        $conn->close();
+
+        echo $id_MG;
+        break;
+
+    case 'upload_images':
+      /* esto esta bien
+        $placas     = $_POST["placas"];
+        foreach ($_FILES["imagenes_add"]["error"] as $clave => $error)
+        {
+            if ($error == UPLOAD_ERR_OK)
+            {
+                $nombre_tmp = $_FILES["imagenes_add"]["tmp_name"][$clave];
+                $nombre = $_FILES["imagenes_add"]["name"][$clave];
+                move_uploaded_file($nombre_tmp,
+                  "../img/subidas/$nombre");
+            }
+        }*/
+
+    //$placas     = $_POST["placas"];
+
+    if( isset($_POST["placas"]) )
+    {
+      $placas = $_POST["placas"];
+      foreach ($_FILES["imagenes_add"]["error"] as $clave => $error)
+      {
+          $allowedExts = array("gif", "jpeg", "jpg", "png");
+          $temp = explode(".", $_FILES["imagenes_add"]["name"][$clave]);
+          $extension = end($temp);
+          //echo "img_name: " . $_FILES['imagenes_add']['name'][$clave] ." temp: " .$temp[1];
+          $imagen="";
+          $random=rand(1,999999);
+
+            if ((($_FILES["imagenes_add"]["type"][$clave] == "image/gif")
+              || ($_FILES["imagenes_add"]["type"][$clave] == "image/jpeg")
+              || ($_FILES["imagenes_add"]["type"][$clave] == "image/jpg")
+              || ($_FILES["imagenes_add"]["type"][$clave] == "image/pjpeg")
+              || ($_FILES["imagenes_add"]["type"][$clave] == "image/png")))
+            {
+              //Verificamos que sea una imagen
+                if ($_FILES["imagenes_add"]["error"][$clave] > 0){
+                  //verificamos que venga algo en el input file
+                  echo "Error numero: " . $_FILES["imagenes_add"]["error"][$clave] . "<br>";
+                }
+                else{
+                  //subimos la imagen
+                  $imagen= $placas.'_'.$random.'_'.$_FILES["imagenes_add"]["name"][$clave];
+                  if(file_exists("../img/subidas/".$imagen ) ){
+                      echo $_FILES["imagenes_add"]["name"][$clave] . " Ya existe. ";
+                  }
+                  else{
+                      //move_uploaded_file($_FILES["imagenes_add"]["tmp_name"],
+                        //"../img/subidas/" .$random.'_'.$_FILES["imagenes_add"]["name"]);
+                        //echo "Archivo guardado en " . "../img/subidas/" .$random.'_'. $_FILES["imagenes_add"]["name"];
+
+                      $temporal=$_FILES['imagenes_add']['tmp_name'][$clave];
+                    //$nombr=$_FILES['file']['name'];
+                    if($_FILES["imagenes_add"]["type"][$clave] == "image/jpeg")
+                    {
+                      $original=imagecreatefromjpeg($temporal);
+                    }else if ($_FILES["imagenes_add"]["type"][$clave] == "image/gif")
+                    {
+                      $original=imagecreatefromgif($temporal);
+                    }else if ($_FILES["imagenes_add"]["type"][$clave] == "image/png")
+                    {
+                      $original=imagecreatefrompng($temporal);
+                    }
+                    else {die('El formato de la imagen debe ser jpg,jpeg,gif o png');}
+                    $ancho_original= imagesx ($original); // 190, 661
+                    $alto_original= imagesy ($original); // 190, 1024
+                    $ancho_nuevo=560;
+                    $alto_nuevo=round ($ancho_nuevo * $alto_original / $ancho_original); // 560 * 190 / 190 = 560, 560 * 1024 / 661 = 867
+                    $copia=imagecreatetruecolor($ancho_nuevo,$alto_nuevo);
+                    imagecopyresampled($copia, $original, 0,0,0,0, $ancho_nuevo,$alto_nuevo, $ancho_original, $alto_original);
+                    imagejpeg($copia,"../img/subidas/".$imagen,100);
+
+                        echo "Placas: " .$placas;
+
+                        $id_MG = $_POST["id_MG"];
+
+                        $thumbnail = "thumbnail_";
+                        $img = "";
+
+                        $archivo = $imagen;
+                        $img .= $archivo;
+
+                        $thumbnail .= $archivo;
+
+                        $result = $conn->query("SELECT id_vehiculo from vehiculos
+                            where placas = '$placas'");
+                        while($rs = $result->fetch_array(MYSQLI_ASSOC) ) {
+                            $id_vehiculo = $rs["id_vehiculo"];
+                        }
+
+                        $conn->query("INSERT into fotos(placas, ruta_img, thumbnail, id_vehiculo,id_memoria_grafica)
+                          values ('$placas','$img','$thumbnail', '$id_vehiculo', '$id_MG')");
+                        echo true;
+
+
+                        imagedestroy($original);
+                        imagedestroy($copia);
+
+                  }
+                }
+            } // fin if de tipo de imagenes ( gif, jpg, etc.. )
+            else{
+              echo "Formato no soportado o falta agregar la imagen";
+              echo "<script>alert('El registro no se agregó')</script>";
+            } // fin else
+
+      } // fin foreach
+      $conn->close();
+    } // fin if isset($placas)
+    else { echo "Por favor inserte las placas"; }
+
+    break;
+
+    case 'upload_images_mod':
+
+      if( isset($_POST["placas"]) )
+    {
+      $nombre_img = "imagenes_mod";
+      $placas = $_POST["placas"];
+      foreach ($_FILES[$nombre_img]["error"] as $clave => $error)
+      {
+          $allowedExts = array("gif", "jpeg", "jpg", "png");
+          $temp = explode(".", $_FILES[$nombre_img]["name"][$clave]);
+          $extension = end($temp);
+          //echo "img_name: " . $_FILES['imagenes_add']['name'][$clave] ." temp: " .$temp[1];
+          $imagen="";
+          $random=rand(1,999999);
+
+            if ((($_FILES[$nombre_img]["type"][$clave] == "image/gif")
+              || ($_FILES[$nombre_img]["type"][$clave] == "image/jpeg")
+              || ($_FILES[$nombre_img]["type"][$clave] == "image/jpg")
+              || ($_FILES[$nombre_img]["type"][$clave] == "image/pjpeg")
+              || ($_FILES[$nombre_img]["type"][$clave] == "image/png")))
+            {
+              //Verificamos que sea una imagen
+                if ($_FILES[$nombre_img]["error"][$clave] > 0){
+                  //verificamos que venga algo en el input file
+                  echo "Error numero: " . $_FILES[$nombre_img]["error"][$clave] . "<br>";
+                }
+                else{
+                  //subimos la imagen
+                  $imagen= $placas.'_'.$random.'_'.$_FILES[$nombre_img]["name"][$clave];
+                  if(file_exists("../img/subidas/".$imagen ) ){
+                      echo $_FILES[$nombre_img]["name"][$clave] . " Ya existe. ";
+                  }
+                  else{
+                      //move_uploaded_file($_FILES["imagenes_add"]["tmp_name"],
+                        //"../img/subidas/" .$random.'_'.$_FILES["imagenes_add"]["name"]);
+                        //echo "Archivo guardado en " . "../img/subidas/" .$random.'_'. $_FILES["imagenes_add"]["name"];
+
+                      $temporal=$_FILES[$nombre_img]['tmp_name'][$clave];
+                    //$nombr=$_FILES['file']['name'];
+                    if($_FILES[$nombre_img]["type"][$clave] == "image/jpeg")
+                    {
+                      $original=imagecreatefromjpeg($temporal);
+                    }else if ($_FILES[$nombre_img]["type"][$clave] == "image/gif")
+                    {
+                      $original=imagecreatefromgif($temporal);
+                    }else if ($_FILES[$nombre_img]["type"][$clave] == "image/png")
+                    {
+                      $original=imagecreatefrompng($temporal);
+                    }
+                    else {die('El formato de la imagen debe ser jpg,jpeg,gif o png');}
+                    $ancho_original= imagesx ($original); // 190, 661
+                    $alto_original= imagesy ($original); // 190, 1024
+                    $ancho_nuevo=560;
+                    $alto_nuevo=round ($ancho_nuevo * $alto_original / $ancho_original); // 560 * 190 / 190 = 560, 560 * 1024 / 661 = 867
+                    $copia=imagecreatetruecolor($ancho_nuevo,$alto_nuevo);
+                    imagecopyresampled($copia, $original, 0,0,0,0, $ancho_nuevo,$alto_nuevo, $ancho_original, $alto_original);
+                    imagejpeg($copia,"../img/subidas/".$imagen,100);
+
+                        echo "Placas: " .$placas;
+
+                        $id_MG = $_POST["id_MG"];
+
+                        $thumbnail = "thumbnail_";
+                        $img = "";
+
+                        $archivo = $imagen;
+                        $img .= $archivo;
+
+                        $thumbnail .= $archivo;
+
+                        $result = $conn->query("SELECT id_vehiculo from vehiculos
+                            where placas = '$placas'");
+                        while($rs = $result->fetch_array(MYSQLI_ASSOC) ) {
+                            $id_vehiculo = $rs["id_vehiculo"];
+                        }
+
+                        $conn->query("INSERT into fotos(placas, ruta_img, thumbnail, id_vehiculo,id_memoria_grafica)
+                          values ('$placas','$img','$thumbnail', '$id_vehiculo', '$id_MG')");
+                        echo true;
+
+
+                        imagedestroy($original);
+                        imagedestroy($copia);
+
+                  }
+                }
+            } // fin if de tipo de imagenes ( gif, jpg, etc.. )
+            else{
+              echo "Formato no soportado o falta agregar la imagen";
+              echo "<script>alert('El registro no se agregó')</script>";
+            } // fin else
+
+      } // fin foreach
+      $conn->close();
+    } // fin if isset($placas)
+    else { echo "Por favor inserte las placas"; }
+
+
+    /*$placas     = $_POST["placas"];
+      foreach ($_FILES["imagenes_mod"]["error"] as $clave => $error)
+      {
+          if ($error == UPLOAD_ERR_OK)
+          {
+              $nombre_tmp = $_FILES["imagenes_mod"]["tmp_name"][$clave];
+              $nombre = $_FILES["imagenes_mod"]["name"][$clave];
+              move_uploaded_file($nombre_tmp,
+                "../js/img/subidas/$nombre");
+          }
+      }*/
+    break;
+
+    case "update":///-----------------Actualizar Datos
+        header("Access-Control-Allow-Origin: *");
+
+            $co = $_POST["co"];
+            $cantidad_fotos       = $_POST["cantidad_fotos"];
+            $placasActualizar     = $_POST["placasActualizar"];
+            $fecha_ingresoActualizar     = $_POST["fecha_ingresoActualizar"];
+            $fecha_documentoActualizar   = $_POST["fecha_documentoActualizar"];
+
+            $conn->query("UPDATE memorias_graficas SET cantidad_fotos ='$cantidad_fotos',placas='$placasActualizar',
+              fecha_ingreso='$fecha_ingresoActualizar',fecha_documento='$fecha_documentoActualizar'
+              WHERE id_memoria_grafica = $co");
+
+             $conn->close();
+
+        break;
+
+    case "delete":///-----------------Eliminar Datos
+      header("Access-Control-Allow-Origin: *");
+      $nombreliminar = $_POST["nombreliminar"];
+      $conn->query("DELETE FROM memorias_graficas
+        where placas LIKE '%$nombreliminar%'
+        || id_memoria_grafica='$nombreliminar'");
+
+      $conn->close();
+      echo $nombreliminar;
+      break;
+
+    case 'search':
+       header("Access-Control-Allow-Origin: *");
+       //echo '<script language="JavaScript"> alert(" SEARCH "); </script>';
+
+        $memoria_graficaBuscar = $_GET["memoria_graficaBuscar"]; // Dato recibido en la variable $recibo_efectivobuscar metodo GET, desde AJAX de recibo_efectivo.js
+
+        $result = $conn->query("Select * from memorias_graficas
+          where placas LIKE '%$memoria_graficaBuscar%'
+          || id_memoria_grafica='$memoria_graficaBuscar'");
+        $memoria_graficaBuscar = array();
+        while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+            $data=array(
+                            $rs["id_memoria_grafica"],
+                            $rs["fecha_ingreso"],
+                            $rs["fecha_documento"],
+                            $rs["placas"]
+                            );
+
+            array_push($memoria_graficaBuscar,$data);
+        }
+        echo json_encode($memoria_graficaBuscar);
+        $conn->close();
+
+        break;
+
+    default:
+        echo "Conexion a BD";
+}
+?>

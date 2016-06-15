@@ -1,0 +1,16 @@
+Acciones sobre tablas
+
+   AGREGAR COLUMNA
+alter table fotos
+add column 
+thumbnail varchar(50) null
+
+   ELIMINAR COLUMNA
+alter table fotos
+drop column
+noserie_auto
+
+   CAMBIAR NOMBRE DE COLUMNA
+alter table nombre_tabla
+change campo_viejo
+campo_nuevo int(11) not null
