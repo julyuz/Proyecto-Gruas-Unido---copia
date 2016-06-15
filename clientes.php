@@ -136,7 +136,7 @@
           </div>
         </div>
 
-        <div class="col s12 m12 l4">
+        <div class="col s12 m12 l4" id="modificar_clientes">
           <div class="card">
               <div class="row">
                   <h2 class="title">Modificar Cliente</h2>
@@ -278,7 +278,7 @@
           </div>
         </div>
 
-        <div class="col s12 m12 l4" id="eliminar">
+        <div class="col s12 m12 l4" id="eliminar_clientes">
           <div class="card">
               <div class="row">
                   <h2 class="title">Eliminar Cliente</h2>
