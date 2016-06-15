@@ -3,9 +3,12 @@
 <script src="js/funciones_generales.js"></script>
 
 <meta chartset="UTF-8">
-    <div class="row">
+ <div class="row" id="row1_gruas">
 
-        <div class="col s12 m12 l4">
+
+
+
+        <div class="col s12 m12 l4" id="agregar_gruas">
           <div class="card">
             <div class="card-content">
                 <div class="row">
@@ -56,7 +59,7 @@
           </div>
         </div>
 
-      <div class="col s12 m12 l4">
+      <div class="col s12 m12 l4" id="modificar_gruas">
         <div class="card">
             <div class="row">
                 <h2 class="title">Modificar Grúa</h2>
@@ -113,7 +116,7 @@
         </div>
       </div>
 
-        <div class="col s12 m12 l4" id="eliminar">
+        <div class="col s12 m12 l4" id="eliminar_gruas">
           <div class="card">
               <div class="row">
                   <h2 class="title">Eliminar Grúa</h2>

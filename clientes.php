@@ -1,11 +1,21 @@
-<?php include('inc/header.php'); ?>
+<?php include('inc/header.php');
+  date_default_timezone_set('America/Mexico_City');
+  session_start();
+  if(isset($_SESSION['Usuario'])){
+
+  }else{
+    header("Location: iniciar.php?Error=Acceso denegado");
+  }
+?>
 <script src="js/cliente.js"></script>
 <script src="js/funciones_generales.js"></script>
 
 <meta chartset="UTF-8">
-     <div class="row">
+     <div class="row" id="row1_clientes">
 
-        <div class="col s12 m12 l4">
+
+
+        <div class="col s12 m12 l4" id="agregar_clientes">
           <div class="card">
             <!--<div class="card-content">-->
                 <div class="row">

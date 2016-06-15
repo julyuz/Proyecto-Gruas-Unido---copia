@@ -3,23 +3,15 @@
 <script src="js/funciones_generales.js"></script>
 
 <meta chartset="UTF-8">
-    <div class="row">
+    <div class="row" id="row1_re">
 
-        <div class="col s12 m12 l4" id="Agregar">
+        <div class="col s12 m12 l4" id="agregar_re">
           <div class="row">
             <div class="row"></div>
-            <a href="#Modificar" class="blue waves-effect waves-light btn">Modificar</a>
-            <a href="#Eliminar" class="red waves-effect waves-blue btn">Eliminar</a>
-            <a href="#Tabla" class="orange waves-effect waves-blue btn">Tabla</a>
 
-            <a href="#!"class="green waves-effect btn"
-            onclick="getid_vehiculo('$placas')">id_vehiculo</a>
-            <div class="row">
-                        <div class="input-field col s12">
-                          <input  id="id_vehiculo" placeholder="id" type="text" class="validate" required>
-                          <label for="first_name">id vehiculo</label>
-                        </div>
-                      </div>
+
+
+
 
           </div>
           <div class="card">
@@ -210,7 +202,7 @@
           </div>
         </div>
 
-        <div class="col s12 m12 l4" id ="Modificar">
+        <div class="col s12 m12 l4" id ="modificar_re">
           <div class="card">
               <div class="row" >
                   <h2 class="title">Modificar Recibo efectivo</h2>
@@ -370,7 +362,7 @@
           </div>
         </div>
 
-        <div class="col s12 m12 l4" id="Eliminar">
+        <div class="col s12 m12 l4" id="eliminar_re">
           <div class="card">
               <div class="row">
                   <h2 class="title">Eliminar Recibo efectivo</h2>

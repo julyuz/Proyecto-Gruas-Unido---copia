@@ -8,16 +8,10 @@ date_default_timezone_set('America/Mexico_City')
 
 
 <meta chartset="UTF-8">
-     <div class="row">
+<div class="row" id="row1_memoria">
 
-        <div class="col s12 m12 l4" id ="Agregar">
-          <div class="row">
-          <div class="row"></div>
-          <a href="#Modificar" class="blue waves-effect waves-light btn">Modificar</a>
-          <a href="#Eliminar" class="red waves-effect waves-blue btn">Eliminar</a>
-          <a href="#Tabla" class="orange waves-effect waves-blue btn">Tabla</a>
-          <!--<div id ="fecha" class="brown waves-effect waves-blue btn" onclick="mostrarHora(this.id)"></div>-->
-          </div>
+        <div class="col s12 m12 l4" id ="agregar_memoria">
+
           <div class="card">
             <!--<div class="card-content">-->
                 <div class="row">
@@ -165,7 +159,7 @@ date_default_timezone_set('America/Mexico_City')
           </div>
         </div>
 
-        <div class="col s12 m12 l4" id ="Modificar">
+        <div class="col s12 m12 l4" id ="modificar_memoria">
           <div class="card">
               <div class="row" >
                   <h2 class="title">Modificar Memoria gráfica</h2>
@@ -297,7 +291,7 @@ date_default_timezone_set('America/Mexico_City')
           </div>
         </div>
 
-        <div class="col s12 m12 l4" id="Eliminar">
+        <div class="col s12 m12 l4" id="eliminar_memoria">
           <div class="card">
               <div class="row" >
                   <h2 class="title">Eliminar Memoria gráfica</h2>

@@ -1,9 +1,10 @@
 <?php include('inc/header.php'); ?>
 <script src="js/operadores.js"></script>
 <meta chartset="UTF-8">
-     <div class="row">
+ <div class="row" id="row1_op">
 
-        <div class="col s12 m12 l4">
+
+        <div class="col s12 m12 l4" id="agregar_op">
           <div class="card">
             <div class="card-content">
                 <div class="row">
@@ -53,7 +54,7 @@
           </div>
         </div>
 
-      <div class="col s12 m12 l4">
+      <div class="col s12 m12 l4" id="modificar_op">
         <div class="card">
             <div class="row">
                 <h2 class="title">Modificar operador</h2>
@@ -116,7 +117,7 @@
         </div>
       </div>
 
-        <div class="col s12 m12 l4" id="eliminar">
+        <div class="col s12 m12 l4" id="eliminar_op">
           <div class="card">
               <div class="row">
                   <h2 class="title">Eliminar operador</h2>

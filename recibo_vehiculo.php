@@ -3,15 +3,10 @@
 <script src="js/funciones_generales.js"></script>
 
 <meta chartset="UTF-8">
-     <div class="row">
+    <div class="row" id="row1_rv">
 
-        <div class="col s12 m12 l4" id ="Agregar">
-          <div class="row">
-          <div class="row"></div>
-          <a href="#Modificar" class="blue waves-effect waves-light btn">Modificar</a>
-          <a href="#Eliminar" class="red waves-effect waves-blue btn">Eliminar</a>
-          <a href="#Tabla" class="orange waves-effect waves-blue btn">Tabla</a>
-          </div>
+        <div class="col s12 m12 l4" id ="agregar_rv">
+
           <div class="card">
             <!--<div class="card-content">-->
                 <div class="row">
@@ -189,7 +184,7 @@
           </div>
         </div>
 
-        <div class="col s12 m12 l4" id ="Modificar">
+        <div class="col s12 m12 l4" id ="modificar_rv">
           <div class="card">
               <div class="row" >
                   <h2 class="title">Modificar Recibo vehiculo</h2>
@@ -346,7 +341,7 @@
           </div>
         </div>
 
-        <div class="col s12 m12 l4" id="Eliminar">
+        <div class="col s12 m12 l4" id="eliminar_rv">
           <div class="card">
               <div class="row" id ="Eliminar">
                   <h2 class="title">Eliminar Recibo vehiculo</h2>

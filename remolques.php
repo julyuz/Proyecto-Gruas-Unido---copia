@@ -3,8 +3,10 @@
 
 <meta chartset="UTF-8">
 
-    <div class="row">
-      <div class="col s12 l4" id="agregar">
+
+       <div class="row" id="row1_remolques">
+
+      <div class="col s12 l4" id="agregar_remolques">
         <div class="card">
               <div class="row">
                 <h2 class="title">Agregar Remolque</h2>
@@ -80,7 +82,7 @@
         </div>
       </div>
 
-      <div class="col s12 l4" id="modificar">
+      <div class="col s12 l4" id="modificar_remolques">
         <div class="card">
             <div class="row">
                 <h2 class="title">Modificar Remolque</h2>
@@ -170,7 +172,7 @@
         </div>
       </div>
 
-      <div class="col s12 l4" id="eliminar">
+      <div class="col s12 l4" id="eliminar_remolques">
         <div class="card">
             <div class="row">
               <h2 class="title">Eliminar Remolque</h2>
