@@ -51,7 +51,7 @@
 	<script type="text/javascript">
 		$('document').ready(function (e) {
 			// body...
-			Materialize.toast("Listo", 3000);
+			Materialize.toast("Listo", 1000);
 		});
 
 		function iniciar_sesion()
@@ -68,13 +68,14 @@
 		       data: $datos,
 		       url: "login/verificar.php",//
 		       success: function (data){
-		       		if(data === "1")
+		       		var valor_cookie = data;
+		       		if(valor_cookie === "1")
 		       		{
 			       		//Materialize.toast("Respuesta de iniciar_sesion: " + data, 3000);
 			       		// Guardar cookie con el nombre ( primer parametro ) y su valor ( segundo parametro )
 			       		guardarCookie("nivel", "1");
 		       		}
-		       		if(data === "2")
+		       		if(valor_cookie === "2")
 		       		{
 		       			//Materialize.toast("TRABAJADOR Nivel " + data, 3000);
 		       			guardarCookie("nivel", "2");
