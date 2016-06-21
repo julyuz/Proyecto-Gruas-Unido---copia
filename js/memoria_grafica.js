@@ -1,10 +1,6 @@
-var url = "http://127.0.0.1/Recibos_Gruas/table/";
-var urlImg ="http://127.0.0.1/Recibos_Gruas/img/subidas/";
-var urlImg2 = "img/subidas/";
+
 var cont_tableAllCars = 1;
 var cont_tableAllMG = 1;
-var flag_img = false; // Bandera para saber si ya se subieron las img
-var flag_doc = false; // Bandera para saber si ya se creó el doc
 
 //include('funciones_generales.js');
 //document.write("<script src = 'funciones_generales.js' language = 'JavaScript' type = 'text/javascript'></script>");
@@ -63,7 +59,12 @@ $('document').ready(function(e){
         }
         $('#example').dataTable();
 
-       }
+       },
+       error: function (request, status, error) {
+            console.log("\n\n*** Error AJAX ***\n\n" + error);
+            //alert(xhr.status);
+            //alert(thrownError);
+        }
    });
 
    Materialize.toast("Listo", 3000);
