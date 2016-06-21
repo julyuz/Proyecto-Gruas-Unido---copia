@@ -313,6 +313,16 @@ add column
 maniobras varchar(20)
 
 
+   USUARIOS***
+alter table usuarios
+change id 
+id int not null auto_increment PRIMARY KEY
+
+alter table usuarios
+add column
+created_at timestamp not null
+
+
    VEHICULOS***
 alter table vehiculos
 add column
