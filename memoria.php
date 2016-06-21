@@ -1,6 +1,12 @@
 <?php include('inc/header.php');
-include('table/conexion.php');
-date_default_timezone_set('America/Mexico_City')
+  date_default_timezone_set('America/Mexico_City');
+  session_start();
+  if(isset($_SESSION['Usuario'])){
+
+  }else{
+    header("Location: iniciar.php?Error=Acceso denegado");
+  }
+
 ?>
 <script src="js/memoria_grafica.js"></script>
 <script src="js/funciones_generales.js"></script>

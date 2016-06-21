@@ -1,4 +1,12 @@
-<?php include('inc/header.php'); ?>
+<?php include('inc/header.php');
+  date_default_timezone_set('America/Mexico_City');
+  session_start();
+  if(isset($_SESSION['Usuario'])){
+
+  }else{
+    header("Location: iniciar.php?Error=Acceso denegado");
+  }
+?>
 
 
      <div class="row">
@@ -13,8 +21,8 @@
               </div>
                 <form action="javascript:Buscar()">
                   <div class="row">
-                    
-               
+
+
               </div>
             </div>
           </div>
@@ -22,5 +30,5 @@
             <p></p>
           </div>
         </div>
-      
+
 <?php include('inc/footer.php'); ?>

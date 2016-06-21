@@ -1,4 +1,12 @@
-<?php include('inc/header.php'); ?>
+<?php include('inc/header.php');
+  date_default_timezone_set('America/Mexico_City');
+  session_start();
+  if(isset($_SESSION['Usuario'])){
+
+  }else{
+    header("Location: iniciar.php?Error=Acceso denegado");
+  }
+ ?>
 <script src="js/recibo_efectivo.js"></script>
 <script src="js/funciones_generales.js"></script>
 
