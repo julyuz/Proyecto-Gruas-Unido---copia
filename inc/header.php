@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Recibos gruas Mancera</title>
+	<title>Proyecto gruas Mancera</title>
 
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -78,7 +78,7 @@
 
 	<ul id="usuarios" class="dropdown-content">
 		<li id="usuarios"  style="color:#5CC6D0 !important;" >
-		<a href="login/usuarios.php">Usuarios</a>
+		<a href="usuarios.php">Usuarios</a>
 		</li>
 	</ul>
 
@@ -146,7 +146,7 @@
 
 	<ul id="usuariosMovil" class="dropdown-content">
 		<li id="usuarios"  style="color:#5CC6D0 !important;" >
-		<a href="login/usuarios.php">Usuarios</a>
+		<a href="usuarios.php">Usuarios</a>
 		</li>
 	</ul>
 
@@ -155,55 +155,53 @@
 	      <a href="#" class="brand-logo right">Grúas Mancera</a>
 
 	      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-	      <ul class="left hide-on-med-and-down">
 
-			<li class = "menu_0opacity" id ="li_catalogos">
-			<a class="dropdown-button" href="#!" data-activates="catalogos">Catálogos<i class="material-icons right">arrow_drop_down</i></a></li>
-			<li class = "menu_0opacity" id ="li_recibos">
-			<a class="dropdown-button" href="#!" data-activates="recibos">Recibos<i class="material-icons right">arrow_drop_down</i></a></li>
-			<li class = "menu_0opacity" id ="li_costos">
-			<a class="dropdown-button" href="#!" data-activates="costos">Costos<i class="material-icons right">arrow_drop_down</i></a></li>
-			<li class = "menu_0opacity" id ="li_resenas">
-			<a class="dropdown-button" href="#!" data-activates="resenas">Reseñas<i class="material-icons right">arrow_drop_down</i></a></li>
-			<li class = "menu_0opacity" id ="li_usuarios">
-			<a class="dropdown-button" href="#!" data-activates="usuarios">Usuarios<i class="material-icons right">arrow_drop_down</i></a></li>
-			<li class="menu_0opacity" id="li_cerrar_sesion">
-				<a href="login/cerrar.php">Cerrar sesión</a>
-			</li>
-	      </ul>
+		    <ul class="left hide-on-med-and-down">
 
-	    <!-- Menú para móviles -->
-	      <ul class="side-nav" id="mobile-demo">
+				<li class = "menu_0opacity" id ="li_catalogos">
+				<a class="dropdown-button" href="#!" data-activates="catalogos">Catálogos<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li class = "menu_0opacity" id ="li_recibos">
+				<a class="dropdown-button" href="#!" data-activates="recibos">Recibos<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li class = "menu_0opacity" id ="li_costos">
+				<a class="dropdown-button" href="#!" data-activates="costos">Costos<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li class = "menu_0opacity" id ="li_resenas">
+				<a class="dropdown-button" href="#!" data-activates="resenas">Reseñas<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li class = "menu_0opacity" id ="li_usuarios">
+				<a class="dropdown-button" href="#!" data-activates="usuarios">Usuarios<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li class="menu_0opacity" id="li_cerrar_sesion">
+					<a href="login/cerrar.php">Cerrar sesión</a>
+				</li>
+		    </ul>
 
-			<li id ="li_catalogosMovil">
-			<a class="dropdown-button" href="#!" data-activates="catalogosMovil">Catálogos<i class="material-icons right">arrow_drop_down</i></a>
-			</li>
-			<li id ="li_recibosMovil">
-			<a class="dropdown-button" href="#!" data-activates="recibosMovil">Recibos<i class="material-icons right">arrow_drop_down</i></a>
-			</li>
+		    <!-- Menú para móviles -->
+		    <ul class="side-nav" id="mobile-demo">
 
-			<li id ="li_costosMovil">
-			<a class="dropdown-button" href="#!" data-activates="costosMovil">Costos<i class="material-icons right">arrow_drop_down</i></a>
-			</li>
+				<li id ="li_catalogosMovil">
+				<a class="dropdown-button" href="#!" data-activates="catalogosMovil">Catálogos<i class="material-icons right">arrow_drop_down</i></a>
+				</li>
+				<li id ="li_recibosMovil">
+				<a class="dropdown-button" href="#!" data-activates="recibosMovil">Recibos<i class="material-icons right">arrow_drop_down</i></a>
+				</li>
 
-			<li id ="li_resenasMovil">
-			<a class="dropdown-button" href="#!" data-activates="resenasMovil">Reseñas<i class="material-icons right">arrow_drop_down</i></a>
-			</li>
+				<li id ="li_costosMovil">
+				<a class="dropdown-button" href="#!" data-activates="costosMovil">Costos<i class="material-icons right">arrow_drop_down</i></a>
+				</li>
 
-			<li id ="li_usuariosMovil">
-			<a class="dropdown-button" href="#!" data-activates="usuariosMovil">Usuarios<i class="material-icons right">arrow_drop_down</i></a>
-			</li>
+				<li id ="li_resenasMovil">
+				<a class="dropdown-button" href="#!" data-activates="resenasMovil">Reseñas<i class="material-icons right">arrow_drop_down</i></a>
+				</li>
 
-			<li class="menu_0opacity" id="li_cerrar_sesion">
-				<a href="login/cerrar.php">Cerrar sesión</a>
-			</li>
+				<li id ="li_usuariosMovil">
+				<a class="dropdown-button" href="#!" data-activates="usuariosMovil">Usuarios<i class="material-icons right">arrow_drop_down</i></a>
+				</li>
 
+				<li class="menu_0opacity" id="li_cerrar_sesion">
+					<a href="Login/cerrar.php">Cerrar sesión</a>
+				</li>
 
-	      </ul>
+		    </ul>
 	    </div>
     </nav>
-
-
 
 
     <script src="js/jquery-1.10.2.js"></script>
