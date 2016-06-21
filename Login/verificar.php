@@ -8,10 +8,10 @@
 			session_start();
 			include "../table/conexion.php";
 			$usu=addslashes($_POST['user']);
-			$contra= addslashes($_POST['user']);
+			$contra= addslashes($_POST['pass']);
 			$pass= md5 ($contra);
 
-			$re = $conn -> query("select * from usuarios where Usuario='".$usu."' AND
+			$re = $conn -> query("SELECT * FROM usuarios WHERE Usuario='".$usu."' AND
 		 					Password='".$pass."'")	or die(mysql_error());
 			while ($rs = $re->fetch_array(MYSQLI_ASSOC)) {
 				$arreglo[]=array(
