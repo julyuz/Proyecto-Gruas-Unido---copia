@@ -1,7 +1,7 @@
 //********
 //  Cambiar la url por la de la maquina real
 //********
-var url = "http://127.0.0.1/Recibos_Gruas/table/";
+var url = "http://127.0.0.1/Proyecto Gruas Unido - copia/table/";
 
 // ***** Funciones COOKIES
 function mostrarCookies()
