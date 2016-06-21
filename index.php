@@ -1,6 +1,5 @@
 <?php include('inc/header.php');
-include('table/conexion.php');
-date_default_timezone_set('America/Mexico_City');
+	date_default_timezone_set('America/Mexico_City');
 	session_start();
 	if(isset($_SESSION['Usuario'])){
 
@@ -8,7 +7,6 @@ date_default_timezone_set('America/Mexico_City');
 		header("Location: iniciar.php?error=Acceso denegado");
 	}
 ?>
-
 
 	<div class="row">
 		<div class="col s6">
@@ -21,6 +19,14 @@ date_default_timezone_set('America/Mexico_City');
 			<label for="">Nivel: <?php echo $_SESSION['Nivel']; ?> </label>
 		</div>
 		<div class="col s12">
-			<a href="login/cerrar.php" class="btn red waves-effect">Cerrar sesión</a>
+			<a href="Login/cerrar.php" class="btn red waves-effect">Cerrar sesión</a>
 		</div>
 	</div>
+		<?php
+		if(isset($_GET['Error'])){
+			echo
+			'<div class="row">
+				<center class="errorlogin red-text">Acceso denegado</center>
+			</div>';
+		}
+		?>
