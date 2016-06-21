@@ -1,67 +1,87 @@
 <?php
-include('conexion.php'); 
-$metodo = $_GET['metodo'];
+include('conexion.php');
+$metodo = $_GET['met'];
 
 switch ($metodo) {
     case "show":///-----------------Mostrar Datos
-            $result = $conn->query("Select * from usuarios");
+            $result = $conn->query("SELECT * FROM usuarios");
             $usuarios = array();
             while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
                 $data=array($rs["id"],
-                            $rs["usuario"],
-                            $rs["password"],
-                            $rs["privilegio"],
+                            $rs["nombre"],
+                            $rs["Usuario"],
+                            $rs["Password"],
+                            $rs["nivel"],
                             $rs["created_at"]);
                 array_push($usuarios,$data);
             }
             echo json_encode($usuarios);
             $conn->close();
         break;
-        
+
     case "update":///-----------------Actualizar Datos
-             $id            = $_POST['id'];
-             $usuario       = $_POST["usuario"];
-             $password      = md5($_POST["password"]);
-             $privilegio    = $_POST["privilegio"];
-             $conn->query("update usuarios set usuario='$usuario', password='$password', privilegio='$privilegio' where id=$id");
+             $id            = $_POST["co"];
+             $nombre        = $_POST["nombreActualizar"];
+             $usuario       = $_POST["usuarioActualizar"];
+             $pass          = $_POST["passActualizar"];
+             $password      = md5($pass);
+             $nivel         = $_POST["nivel"];
+             $conn->query("UPDATE usuarios SET nombre = '$nombre', Usuario='$usuario',
+              Password='$password', nivel='$nivel' WHERE id='$id'");
              $conn->close();
-            
+
         break;
 
     case "store":///-----------------Guardar Datos
        header("Access-Control-Allow-Origin: *");
-        $usuario          = $_POST["usuario"];
-        $password         = md5($_POST["password"]);
-        $privilegio       = $_POST["privilegio"];
-        $conn->query("insert into usuarios (usuario,password,privilegio)values('$usuario','$password','$privilegio')");
-        $conn->close();
-        echo true;
-        break;
+        $nom=($_POST['nombre']);
+        $usu=($_POST['usu']);
+        $password=($_POST['pass']);
+        $nivel=($_POST['nivel']);
+
+        $pass= md5($password);
+        $prueba= strlen ($nom) * strlen ($usu) * strlen ($password) * strlen ($nivel);
+
+        if ($prueba > 0)
+        {
+          $conn ->query("INSERT INTO usuarios (nombre,Usuario,Password,nivel)
+            VALUES ('$nom','$usu','$pass','$nivel')");
+          echo "\nregistro exitoso\n";
+          echo "nombre->".$nom." usua->".$usu." contra->".$pass." nivel->".$nivel;
+          //header("Location: ../login/usuarios.php");
+          $conn->close(); echo true;
+        }
+        else{
+          echo "Llene por favor todos los campos";
+        }
 
     case "delete":///-----------------Eliminar Datos
-      $usuario = $_POST["usuario"];
-      $conn->query("DELETE FROM usuarios where usuario = '$usuario'");
-      echo $usuario;
-      break;
+      $id = $_POST["codigoEliminar"];
+      $conn->query("DELETE FROM usuarios WHERE id = '$id'");
+      $conn -> close();
+      echo "Eliminado el id: " + $id;
+    break;
 
     case 'search':
         $usuario = $_GET["usuario"];
 
-       $result = $conn->query("Select * from usuarios where usuario LIKE '%$usuario%'");
+       $result = $conn->query("SELECT * from usuarios where id = '$usuario'");
         $usuarios = array();
         while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
             $data=array($rs["id"],
-                        $rs["usuario"],
-                        $rs["password"],
-                        $rs["privilegio"],
-                        $rs["created_at"]);
+                        $rs["nombre"],
+                        $rs["Usuario"],
+                        $rs["Password"],
+                        $rs["nivel"]
+                        );
             array_push($usuarios,$data);
         }
         echo json_encode($usuarios);
         $conn->close();
-       
-        
+
+
         break;
+
     case 'log':
            $usuario  = $_POST["user"];
            $password = $_POST["password"];
@@ -84,7 +104,7 @@ switch ($metodo) {
             }
             $conn->close();
           }
-           
+
     break;
     default:
         echo "Conexion a BD";
