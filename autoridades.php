@@ -293,11 +293,21 @@
                   <h2 class="title">Eliminar Autoridad</h2>
 
                      <div class="input-field col s12">
-                       <input id="noseliminar" type="text" class="validate" placeholder="nombre o codigo" required>
-                       <label for="icon_prefix">Nombre o codigo</label>
+                       <div class="row">
+                              <div class="input-field col s6">
+                                <input  id="noseliminar" placeholder="Código Autoridad" type="text" class="validate" required>
+                                <label for="first_name">Código Autoridad</label>
+                              </div>
+
+                              <div class="col s6">
+                                <a class="waves-effect waves-light
+                                btn orange modal-triggerGetAllAutoridad"
+                                href="#modalGetAllAutoridad" onclick="getAllAutoridad()">Autoridad</a>
+                              </div>
+                          </div>
                      </div>
                </div>
-               <a class="waves-effect waves-teal btn-flat" onclick="eliminarautoridades()">Eliminar</a>
+               <a class="waves-effect btn red" onclick="eliminarautoridades()">Eliminar</a>
                <div class="row">
                  <p></p>
                </div>

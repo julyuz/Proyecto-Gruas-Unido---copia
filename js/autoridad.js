@@ -316,7 +316,7 @@ function modificarAutoridad(nombre_archivo){
 }
 
 function eliminarautoridades(){
-    var nombreliminar=document.getElementById("nombreliminar").value;
+    var nombreliminar=document.getElementById("noseliminar").value;
     if(nombreliminar===""){
      Materialize.toast('Completar campos requeridos', 4000);
     //console.log(tipoPago);
