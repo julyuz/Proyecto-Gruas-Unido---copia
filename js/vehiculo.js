@@ -1,4 +1,4 @@
-var url = "http://127.0.0.1/Recibos_Gruas/table/";
+
 var cont_tableAllClients = 1;
 var cont_tableAllCars = 1;
 
