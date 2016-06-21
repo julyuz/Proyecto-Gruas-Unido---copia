@@ -1,5 +1,14 @@
-<?php include('inc/header.php'); ?>
+<?php include('inc/header.php');
+  date_default_timezone_set('America/Mexico_City');
+  session_start();
+  if(isset($_SESSION['Usuario'])){
+
+  }else{
+    header("Location: iniciar.php?Error=Acceso denegado");
+  }
+?>
 <script src="js/operadores.js"></script>
+<script src="js/funciones_generales.js"></script>
 <meta chartset="UTF-8">
  <div class="row" id="row1_op">
 
@@ -46,7 +55,7 @@
                       </div>
                     </div>
 
-                     <a class="waves-effect waves-teal btn-flat" onclick="agregarop()">Agregar</a>
+                     <a class="waves-effect btn green" onclick="agregarop()">Agregar</a>
                   </form>
 
                 </div>
@@ -59,15 +68,57 @@
             <div class="row">
                 <h2 class="title">Modificar operador</h2>
                   <form class="col s12" action="javascript:buscarop()">
-                  <div class="row">
-                    <div class="input-field col s6">
-                      <input  id="vbuscar" type="text" class="validate" maxlength="15" required>
-                      <label for="first_name">id operador</label>
+                    <div class="row">
+                      <!-- Modal Trigger -->
+                          <div class="row">
+                            <div class="input-field col s6">
+                              <input id="id_operador" type="text" class="validate" required placeholder ="Código operador">
+                              <label for="first_name">Código operador</label>
+                            </div>
+                            <div class="col s6">
+                              <a class="waves-effect waves-light
+                              btn orange modal-triggerGetAllOpe"
+                              href="#modalGetAllOpe" onclick="getAllOpe()">Operador</a>
+
+                            </div>
+                          </div>
+
+                          <!-- Modal Structure -->
+                          <div id="modalGetAllOpe" class="modal">
+                            <div class="modal-content" id="model-contentGetAllOpe">
+                              <h4>Operadores</h4>
+                              <p>Elija un operador:</p>
+
+                              <table id="tableAllOpe" class="display responsive-table"
+                               cellspacing="0"  style="font-size:12x;">
+                                <thead>
+                                  <tr id = "pointer">
+
+                                  <th>Código</th>
+                                  <th>Nombre</th>
+                                  <th>Licencia</th>
+                                  <th>Tipo licencia</th>
+                                  <th>No licencia</th>
+
+                                  <th>Vigencia licencia</th>
+
+                                  </tr>
+                                </thead>
+                                <tbody id="tbodyAllOpe">
+
+                                </tbody>
+                              </table>
+
+                            </div>
+                            <div class="modal-footer">
+                              <a href="#!" class=" modal-action
+                              modal-close waves-effect waves-orange btn-flat">Aceptar</a>
+                            </div>
+                          </div>
+                      <div class="input-field col s12">
+                          <a class="waves-effect waves-green btn-flat" onclick="buscarop()" >Buscar</a>
+                      </div>
                     </div>
-                    <div class="input-field col s6">
-                    <a class="waves-effect waves-teal btn-flat" onclick="buscarop()" >Buscar</a>
-                    </div>
-                  </div>
                   </form>
 
                   <form>
@@ -110,7 +161,7 @@
                     </div>
                     </div>
 
-                     <a class="waves-effect waves-teal btn-flat" onclick="modificarop()" >Modificar</a>
+                     <a class="waves-effect btn green" onclick="modificarop()" >Modificar</a>
                   </form>
                   <div class="row"></div>
              </div>
@@ -120,14 +171,25 @@
         <div class="col s12 m12 l4" id="eliminar_op">
           <div class="card">
               <div class="row">
+                <div class="col s12">
                   <h2 class="title">Eliminar operador</h2>
+                </div>
 
-                     <div class="input-field col s12">
-                       <input id="noseliminar" type="text" class="validate" placeholder="id operador" required>
-                       <label for="icon_prefix">id operador</label>
-                     </div>
+                  <!-- Modal Trigger -->
+                        <div class="row">
+                          <div class="input-field col s6">
+                            <input id="id_operadorMod" type="text" class="validate" required placeholder ="Código operador">
+                            <label for="first_name">Código operador</label>
+                          </div>
+                          <div class="col s6">
+                            <a class="waves-effect waves-light
+                            btn orange modal-triggerGetAllOpe"
+                            href="#modalGetAllOpe" onclick="getAllOpe()">Operador</a>
+
+                          </div>
+                        </div>
                </div>
-                 <a class="waves-effect waves-teal btn-flat" onclick="eliminarop()">Eliminar</a>
+                 <a class="waves-effect btn red" onclick="eliminarop()">Eliminar</a>
                  <div class="row">
                    <p></p>
                  </div>
@@ -139,7 +201,7 @@
 
 
   <div class="row">
-  <div class="col s12 m12 l12">
+    <div class="col s12 m12 l12">
           <div class="card">
            <h2 class="title">Operadores </h2>
             <div class="card-content">
@@ -160,9 +222,7 @@
               </table>
             </div>
           </div>
-        </div>
+    </div>
+  </div>
 
-
-
-      </div>
 <?php include('inc/footer.php'); ?>

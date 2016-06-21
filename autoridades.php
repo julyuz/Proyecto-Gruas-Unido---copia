@@ -1,4 +1,12 @@
-<?php include('inc/header.php'); ?>
+<?php include('inc/header.php');
+  date_default_timezone_set('America/Mexico_City');
+  session_start();
+  if(isset($_SESSION['Usuario'])){
+
+  }else{
+    header("Location: iniciar.php?Error=Acceso denegado");
+  }
+?>
 <script src="js/autoridad.js"></script>
 <script src="js/funciones_generales.js"></script>
 
@@ -91,9 +99,9 @@
 
                     <div class ="row">
                         <div class="file-field input-field col s12">
-                          <div class="btn blue">
+                          <div class="btn orange waves-effect waves-light">
                             <span>Logo Dependencia</span>
-                            <input type="file" name="logodependencia" id="logodependencia" class="validate" required>
+                            <input type="file" name="logodependencia" id="logodependencia" class="validate" accept="image/*" required>
                           </div>
 
                           <div class="file-path-wrapper">
@@ -103,12 +111,10 @@
                     </div>
 
                     <div class="row">
-                      <a class="waves-effect btn green" onclick="subirImagen('form_add','logodependencia')">Subir imagen</a>
+                      <a class="waves-effect btn green" onclick="subirImagenAutoridad('form_add','logodependencia', 'nombre');">Agregar</a>
                     </div>
 
-                    <div class="row">
-                      <a class="waves-effect waves-teal btn-flat" onclick="agregarautoridades()">Agregar</a>
-                    </div>
+                    <div id="output"></div>
                   </form>
 
                 </div>
@@ -122,12 +128,57 @@
                   <h2 class="title">Modificar Autoridad</h2>
                     <form class="col s12" action="javascript:buscarAutoridad()">
                       <div class="row">
-                        <div class="input-field col s6">
-                          <input  id="autoridadBuscar" type="text" class="validate" maxlength="15" required>
-                          <label for="first_name">Código de autoridad</label>
+
+
+                        <!-- Modal Trigger -->
+                          <div class="row">
+                              <div class="input-field col s6">
+                                <input  id="vbuscar" placeholder="Código Autoridad" type="text" class="validate" required>
+                                <label for="first_name">Código Autoridad</label>
+                              </div>
+
+                              <div class="col s6">
+                                <a class="waves-effect waves-light
+                                btn orange modal-triggerGetAllAutoridad"
+                                href="#modalGetAllAutoridad" onclick="getAllAutoridad()">Autoridad</a>
+                              </div>
+                          </div>
+
+                        <!-- Modal Structure -->
+                        <div id="modalGetAllAutoridad" class="modal">
+                          <div class="modal-content" id="modal-contentGetAllAutoridad">
+                            <h4>Autoridades</h4>
+                            <p>Elija una Autoridad</p>
+
+                            <table id="tableAllAutoridad" class="display responsive-table"  cellspacing="0"  style="font-size:12x;">
+                              <thead>
+                                <tr id="pointer">
+
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Jefe</th>
+                                <th>Tel Jefe</th>
+                                <th>Puesto</th>
+
+                                <th>Tel Dependencia</th>
+                                <th>Logo</th>
+
+                                </tr>
+                              </thead>
+                              <tbody id ="tbodyAllAutoridad">
+
+                              </tbody>
+                            </table>
+
+                          </div>
+                          <div class="modal-footer">
+                            <a href="#!" class=" modal-action
+                            modal-close waves-effect waves-green btn-flat">Aceptar</a>
+                          </div>
                         </div>
-                        <div class="input-field col s6">
-                        <a class="waves-effect btn" onclick="buscarAutoridad()" >Buscar</a>
+
+                        <div class="input-field col s12">
+                          <a class="waves-effect waves-green btn-flat" onclick="buscarAutoridad()" >Buscar</a>
                         </div>
                       </div>
                     </form>
@@ -135,7 +186,7 @@
                     <form name ="form_mod" enctype="multiport/form-data">
                       <div class="row">
                       <div class="input-field col s6">
-                          <input disabled value="co" id="co" type="number" class="validate" placeholder="Codigo de autoridad" required maxlength="20">
+                          <input disabled id="co" type="number" class="validate" placeholder="Codigo de autoridad" required maxlength="20">
                           <label for="first_name">Código de autoridad</label>
                         </div>
                         <div class="input-field col s12">
@@ -216,7 +267,7 @@
 
                     <div class ="row">
                         <div class="file-field input-field col s12">
-                          <div class="btn blue">
+                          <div class="btn orange">
                             <span>Logo Dependencia</span>
                             <input type="file" name="logodependenciaActualizar" id="logodependenciaActualizar" class="validate" required>
                           </div>
@@ -228,11 +279,7 @@
                       </div>
 
                       <div class="row">
-                        <a class="waves-effect btn green" onclick="subirImagen('form_mod','logodependenciaActualizar')">Subir imagen</a>
-                      </div>
-
-                      <div class="row">
-                        <a class="waves-effect waves-teal btn-flat" onclick="modificarAutoridad()" >Modificar</a>
+                        <a class="waves-effect btn green" onclick="subirImagenAutoridad('form_mod','logodependenciaActualizar', 'nombreActualizar')" >Modificar</a>
                       </div>
                     </form>
                     <div class="row"></div>
@@ -246,7 +293,7 @@
                   <h2 class="title">Eliminar Autoridad</h2>
 
                      <div class="input-field col s12">
-                       <input id="nombreliminar" type="text" class="validate" placeholder="nombre o codigo" required>
+                       <input id="noseliminar" type="text" class="validate" placeholder="nombre o codigo" required>
                        <label for="icon_prefix">Nombre o codigo</label>
                      </div>
                </div>
@@ -279,7 +326,8 @@
                     <th>Contacto 3</th>
                     <th>Tel Contacto 3</th>
                     <th>Tel Dependencia</th>
-                    <th>Logo Dependencia</th>
+                    <th>Logo</th>
+
                   </tr>
                 </thead>
                 <tbody  id="muestra">

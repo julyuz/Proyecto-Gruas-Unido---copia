@@ -6,14 +6,14 @@ $metodo = $_GET['met'];
 switch ($metodo) {
 
     case "show":///-----------------Mostrar Datos
-            $result = $conn->query("Select * from remolques");
+            $result = $conn->query("SELECT * FROM remolques");
             $vehiculos = array();
             while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
                 $data=array(
-                            $rs["id_remolques"],//0
+                            $rs["id_remolque"],//0
                             $rs["tipo"],
-                            $rs["marca"],//1
-                            $rs["modelo"],//2
+                            $rs["marca"],
+                            $rs["modelo"],
                             $rs["capacidad"],
                             $rs["serie"],
                             $rs["tipo_carroceria"],
@@ -50,7 +50,7 @@ switch ($metodo) {
         break;
 
  case "update":///-----------------Actualizar Datos
-             $id_remolques = $_POST["id_remolques"];
+             $id_remolques = $_POST["id_remolque"];
              $tipoActualizar    = $_POST["tipoActualizar"];
              $marcaActualizar = $_POST["marcaActualizar"];
              $modeloActualizar    = $_POST["modeloActualizar"];
@@ -63,14 +63,14 @@ switch ($metodo) {
 
 
 
-             $conn->query("update remolques set tipo='$tipoActualizar',marca='$marcaActualizar',modelo='$modeloActualizar',capacidad='$capacidadac',serie='$serieac',tipo_carroceria='$tipo_carrac',pa='$paActualizar',ac='$acActualizar',no_siniestro=$nsiActualizar where id_remolques=$id_remolques");
+             $conn->query("update remolques set tipo='$tipoActualizar',marca='$marcaActualizar',modelo='$modeloActualizar',capacidad='$capacidadac',serie='$serieac',tipo_carroceria='$tipo_carrac',pa='$paActualizar',ac='$acActualizar',no_siniestro=$nsiActualizar where id_remolque=$id_remolques");
              $conn->close();
 
         break;
 
     case "delete":///-----------------Eliminar Datos
       $nombreliminar = $_POST["noseliminar"];
-      $conn->query("DELETE FROM remolques  where  id_remolques=$nombreliminar");
+      $conn->query("DELETE FROM remolques where id_remolque=$nombreliminar");
 
       $conn->close();
       echo $nombreliminar;
@@ -79,11 +79,11 @@ switch ($metodo) {
   case 'search':
         $vbuscar = $_GET["vbuscar"];
 
-        $result = $conn->query("Select * from remolques where id_remolques=$vbuscar");
+        $result = $conn->query("Select * from remolques where id_remolque=$vbuscar");
         $vbuscar = array();
         while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
             $data=array(
-                        $rs["id_remolques"],
+                        $rs["id_remolque"],
                         $rs["tipo"],
                         $rs["marca"],
                         $rs["modelo"],

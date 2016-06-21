@@ -1,4 +1,12 @@
-<?php include('inc/header.php'); ?>
+<?php include('inc/header.php');
+  date_default_timezone_set('America/Mexico_City');
+  session_start();
+  if(isset($_SESSION['Usuario'])){
+
+  }else{
+    header("Location: iniciar.php?Error=Acceso denegado");
+  }
+?>
 <script src="js/vehiculo.js"></script>
 <script src ="js/funciones_generales.js"></script>
 
@@ -46,7 +54,7 @@
                             <table id="tableAllClients" class="display responsive-table"
                              cellspacing="0"  style="font-size:12x;">
                               <thead>
-                                <tr>
+                                <tr id = "pointer">
 
                                 <th>Código</th>
                                 <th>Nombre</th>
@@ -227,7 +235,7 @@
 
 
 
-                     <a class="waves-effect waves-teal btn-flat" onclick="agregarvehiculo()">Agregar</a>
+                     <a class="waves-effect btn green" onclick="agregarvehiculo()">Agregar</a>
                   </form>
 
                 </div>
@@ -269,7 +277,7 @@
 
                               <table id="tableAllCars" class="display responsive-table"  cellspacing="0"  style="font-size:12x;">
                                 <thead>
-                                  <tr>
+                                  <tr id = "pointer">
 
                                   <th>Placas</th>
                                   <th>Marca</th>
@@ -300,7 +308,7 @@
                       </div>
 
                       <div class="input-field col s12">
-                      <a class="waves-effect waves-orange btn-flat" onclick="buscarvehiculo()" >Buscar</a>
+                      <a class="waves-effect waves-green btn-flat" onclick="buscarvehiculo()" >Buscar</a>
                       </div>
 
                     </div>
@@ -459,7 +467,7 @@
 
                       </div>
 
-                       <a class="waves-effect waves-teal btn-flat" onclick="modificarvehiculo()" >Modificar</a>
+                       <a class="waves-effect btn green" onclick="modificarvehiculo()" >Modificar</a>
                     </form>
                     <div class="row"></div>
                </div>
@@ -497,7 +505,7 @@
 
                               <table id="tableAllCars" class="display responsive-table"  cellspacing="0"  style="font-size:12x;">
                                 <thead>
-                                  <tr>
+                                  <tr id="pointer">
 
                                   <th>Placas</th>
                                   <th>Marca</th>

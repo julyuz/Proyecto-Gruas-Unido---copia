@@ -138,7 +138,7 @@
                         <label for="first_name">RFC</label>
                       </div>
                     </div>
-                    <a class="waves-effect waves-teal btn-flat" onclick="agregarclientes()">Agregar</a>
+                    <a class="waves-effect waves-teal btn green" onclick="agregarclientes()">Agregar</a>
                   </form>
 
                 </div>
@@ -153,12 +153,62 @@
                     <form class="col s12" action="javascript:buscarCliente()">
                       <div class="row">
                         <div class="input-field col s6">
-                          <input  id="clienteBuscar" type="text" class="validate" maxlength="15" required>
-                          <label for="first_name">Codigo de cliente</label>
+                          <input  id="clienteBuscar" placeholder ="Código de cliente" type="text" class="validate" maxlength="15" required>
+                          <label for="first_name">Código de cliente</label>
                         </div>
                         <div class="input-field col s6">
-                        <a class="waves-effect waves-teal btn-flat" onclick="buscarCliente()" >Buscar</a>
+                          <!-- Modal Trigger -->
+                          <div class="row">
+                              <div class="col s4 offset-s4">
+                                <a class="waves-effect waves-light
+                                btn orange modal-triggerGetAllUsers"
+                                href="#modalGetAllUsers" onclick="getAllUsers()">cliente</a>
+                              </div>
+                          </div>
+
+                          <!-- Modal Structure -->
+                          <div id="modalGetAllUsers" class="modal">
+                            <div class="modal-content" id="modal-contentGetAllUsers">
+                              <h4>Clientes</h4>
+                              <p>Elija un cliente:</p>
+
+                              <table id="tableAllUsers" class="display responsive-table"  cellspacing="0"  style="font-size:12x;">
+                                <thead>
+                                  <tr id="pointer">
+
+                                  <th>Codigo</th>
+                                  <th>Nombre</th>
+                                  <th>Correo</th>
+                                  <th>Celular</th>
+                                  <th>Calle</th>
+
+                                  <th>Colonia</th>
+                                  <th>C.P.</th>
+                                  <th>Num ext</th>
+                                  <th>Num int</th>
+                                  <th>Ciudad</th>
+
+                                  <th>Curp</th>
+                                  <th>RFC</th>
+
+                                  </tr>
+                                </thead>
+                                <tbody id ="tbodyAllUsers">
+
+                                </tbody>
+                              </table>
+
+                            </div>
+                            <div class="modal-footer">
+                              <a href="#!" class=" modal-action
+                              modal-close waves-effect waves-green btn-flat">Aceptar</a>
+                            </div>
+                          </div>
                         </div>
+                          <div class="col s12">
+                            <a class="waves-effect waves-green btn-flat" onclick="buscarCliente()" >Buscar</a>
+
+                          </div>
                       </div>
                     </form>
 
@@ -281,7 +331,7 @@
                           <label for="first_name">RFC</label>
                         </div>
                       </div>
-                       <a class="waves-effect waves-teal btn-flat" onclick="modificarCliente()" >Modificar</a>
+                       <a class="waves-effect  btn green" onclick="modificarCliente()" >Modificar</a>
                     </form>
                     <div class="row"></div>
                </div>
@@ -291,14 +341,32 @@
         <div class="col s12 m12 l4" id="eliminar_clientes">
           <div class="card">
               <div class="row">
-                  <h2 class="title">Eliminar Cliente</h2>
+                  <div class="col s12">
+                    <h2 class="title">Eliminar Cliente</h2>
+                  </div>
 
-                     <div class="input-field col s12">
-                       <input id="nombreliminar" type="text" class="validate" placeholder="nombre o codigo" required>
-                       <label for="icon_prefix">Nombre o codigo</label>
+                  <div class="row">
+
+                     <div class="input-field col s6">
+                       <input id="nombreliminar" type="text" class="validate" placeholder="Código cliente" required>
+                       <label for="icon_prefix">Código cliente</label>
                      </div>
+
+                     <div class="col s6">
+                       <!-- Modal Trigger -->
+                          <div class="row">
+                              <div class="col s4 offset-s4">
+                                <a class="waves-effect waves-light
+                                btn orange modal-triggerGetAllUsers"
+                                href="#modalGetAllUsers" onclick="getAllUsers()">cliente</a>
+                              </div>
+                          </div>
+
+                     </div>
+                  </div>
+
                </div>
-               <a class="waves-effect waves-teal btn-flat" onclick="eliminarclientes()">Eliminar</a>
+               <a class="waves-effect  btn red" onclick="eliminarclientes()">Eliminar</a>
                <div class="row">
                  <p></p>
                </div>

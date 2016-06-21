@@ -1,3 +1,5 @@
+var cont_tableAllOpe= 1;
+
 $('document').ready(function(e){
  /* $("#eliminar").hide();
   var cookie = document.cookie;
@@ -15,30 +17,90 @@ $('document').ready(function(e){
     selectYears: 15 // Creates a dropdown of 15 years to control year
   });
 
+  console.log("url: " + url);
+  $('.modal-triggerGetAllOpe').leanModal();
 
  $.ajax({
      type: "get",
      dataType: 'json',
-     url: "http://127.0.0.1/Recibos_Gruas/table/operador.php?met=show",//URL dela funcion a ejecutar en table/clientes.php
+     url: url +"operador.php?met=show",//URL dela funcion a ejecutar en table/clientes.php
      success: function (data){
       for (var i = 0; i < data.length; i++) {
 
-          $("tbody").append( $("<tr> <td>"+data[i][0]+"</td><td>"+data[i][1]+
+          $("#muestra").append( $("<tr> <td>"+data[i][0]+"</td><td>"+data[i][1]+
             "</td><td>"+data[i][2]+"</td><td>"+data[i][3]+
             "</td><td>"+data[i][4]+"</td><td>"+data[i][5]+"</td></tr>"));
-
-
-              }
+      }
         $('#example').dataTable();
 
-     } // respuesta de case en table/clientes.php
+     }
  });
 
 });//--------------------------END DOCUMENT
 
+function getAllOpe()
+{
+    //alert("Clickeado!");
+    if( cont_tableAllOpe === 1)
+    {
+      $.ajax({
+       type: "get",
+       dataType: 'json',
+       url: url + "operador.php?met=show",//URL dela funcion a ejecutar en table/operador.php
+       success: function (data){
+        console.log("*** For ***\ncont_tableAllOpe: " + cont_tableAllOpe);
+        for (var i = 0; i < data.length; i++) {
+            //console.log("getClient: " + getClient(data[i][1] ) );
+            $("#tbodyAllOpe").append
+              (
+                $("<tr onclick='getRowOpe();' ><td>"+data[i][0]+
+                "</td><td>"+data[i][1]+
+                "</td><td>"+data[i][2]+"</td><td>"+data[i][3]+
+                "</td><td>"+data[i][4]+"</td><td>"+data[i][5]+"</td></tr>"
+                )
+              );
+            //console.log("Exito; data.length: " + data.length, 4000);
+          }
+          cont_tableAllOpe= cont_tableAllOpe + 1;
+          $('#tableAllOpe').dataTable();
 
+       }, // respuesta de case en table/clientes.php
+       error: /*function (xhr, ajaxOptions, thrownError){
+          alert(xhr.status);
+          alert(thrownError);
+        }*/
 
-function agregarop(){//Funcion agregar usuario
+        function (request, status, error) {
+
+          console.log(request.responseText);
+        }
+      });
+    }
+}
+
+function getRowOpe()
+{
+    //Materialize.toast("Id: " + id, 2400);
+
+    var table = $('#tableAllOpe').DataTable();
+
+        $('#tbodyAllOpe').on( 'click', 'tr', function () {
+
+              console.log( table.row( this ).data() );
+              var registro = table.row( this ).data(); // Obtener todos los datos de la actual fila
+              var nombre_id = new Array(2);
+              var idOpe = registro[0];
+
+              document.getElementById("id_operador").value = idOpe;
+
+              document.getElementById("id_operadorMod").value = idOpe;
+
+              $('#modalGetAllOpe').closeModal(); // Cerrar el modal cuando se seleccione el cliente
+
+        } );
+}
+
+function agregarop(){
 
 
  var nombre=document.getElementById("nombre").value;
@@ -66,7 +128,7 @@ function agregarop(){//Funcion agregar usuario
 
   $.ajax({
       type: "POST",
-      url: "http://127.0.0.1/Recibos_Gruas/table/operador.php?met=store",//URL dela funcion a ejecutar en table/clientes.php
+      url: url +"operador.php?met=store",//URL dela funcion a ejecutar en table/clientes.php
       data: $data, //enviar los datos que colocamos dentro del objeto
       success: function (data){
       location.reload();
@@ -77,12 +139,12 @@ function agregarop(){//Funcion agregar usuario
 }
 
 function modificarop(){
-                                var idop = document.getElementById("idop").value;
-                                var nombreac = document.getElementById("nombreac").value;
-                                var licac = document.getElementById("licac").value;
-                                var tl = document.getElementById("tl").value;
-                                var nl = document.getElementById("nl").value;
-                                var vl = document.getElementById("vl").value;
+    var idop = document.getElementById("idop").value;
+    var nombreac = document.getElementById("nombreac").value;
+    var licac = document.getElementById("licac").value;
+    var tl = document.getElementById("tl").value;
+    var nl = document.getElementById("nl").value;
+    var vl = document.getElementById("vl").value;
 
 
    if(idop=="" || nombreac=="" || licac=="" || tl==""|| nl==""|| vl==""){
@@ -95,11 +157,11 @@ function modificarop(){
            'nombreac'   : nombreac ,
            'licac': licac,
            'tl'   : tl,
-            'nl': nl,
+           'nl': nl,
            'vl': vl };
   $.ajax({
       type: "POST",
-      url: "http://127.0.0.1/Recibos_Gruas/table/operador.php?met=update",//URL dela funcion a ejecutar en table/usuarios.php
+      url: url +"operador.php?met=update",//URL dela funcion a ejecutar en table/usuarios.php
       data: $data, //enviar los datos que colocamos dentro del objeto
       success: function (data){ location.reload();
       } // respuesta de case en table/usuarios.php
@@ -108,7 +170,7 @@ function modificarop(){
 }
 
 function eliminarop(){
-    var noseliminar=document.getElementById("noseliminar").value;
+    var noseliminar=document.getElementById("id_operadorMod").value;
     if(noseliminar==""){
      Materialize.toast('Completar campos requeridos', 4000);
     //console.log(tipoPago);
@@ -117,33 +179,40 @@ function eliminarop(){
 
        $.ajax({
            type: "POST",
-           url: "http://127.0.0.1/Recibos_Gruas/table/operador.php?met=delete",//URL dela funcion a ejecutar en table/clientes.php
+           url: url +"operador.php?met=delete",//URL dela funcion a ejecutar en table/clientes.php
            data: $data, //enviar los datos que colocamos dentro del objeto
-           success: function (data){ location.reload();} // respuesta de case en table/clientes.php
+           success: function (data){ location.reload();}
        });
     }
 
 }
 
 function buscarop(){
-  var vbuscar=document.getElementById("vbuscar").value;//Obtener los valores de input y guardarlos en variable
-
+  var vbuscar=document.getElementById("id_operador").value;//Obtener los valores de input y guardarlos en variable
+  if (vbuscar === "") { Materialize.toast('Completar campos requeridos', 4000); }
+  else
+  {
    $data = { 'vbuscar' : vbuscar};
 
    $.ajax({
        type: "GET",
        dataType: 'json',
-       url: "http://127.0.0.1/Recibos_Gruas/table/operador.php?met=search",//URL dela funcion a ejecutar en table/usuarios.php
+       url: url +"operador.php?met=search",
        data: $data, //enviar los datos que colocamos dentro del objeto
        success: function (data){
-                                 document.getElementById("idop").value = data[0][0];
-                                 document.getElementById("nombreac").value = data[0][1];
-                                 document.getElementById("licac").value = data[0][2];
-                                 document.getElementById("tl").value = data[0][3];
-                                 document.getElementById("nl").value = data[0][4];
-                                 document.getElementById("vl").value = data[0][5];
+        if( data.length > 0)
+            {
+             document.getElementById("idop").value = data[0][0];
+             document.getElementById("nombreac").value = data[0][1];
+             document.getElementById("licac").value = data[0][2];
+             document.getElementById("tl").value = data[0][3];
+             document.getElementById("nl").value = data[0][4];
+             document.getElementById("vl").value = data[0][5];
 
-                                } // respuesta de case en table/usuarios.php
+            }
+            else{ Materialize.toast("No hay registro", 4000); }
+        }
      });
+ }
 }
 

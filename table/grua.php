@@ -34,28 +34,31 @@ switch ($metodo) {
         $modelo           = $_POST["modelo"];
         $numero        = $_POST["numero"];
 
+        $idOpe    = $_POST["id_operador"];
 
-        $conn->query("insert into gruas (placas,tipo,marca,modelo,numero)values('$placas','$tipo','$marca','$modelo'
-            ,'$numero')");
 
+        $conn->query("INSERT into gruas (placas,tipo,marca,modelo,numero, id_operador)
+          values('$placas','$tipo','$marca','$modelo','$numero','$idOpe')");
 
           $conn->close();
-        echo "no se inserto nada";
     break;
 
   case "update":///-----------------Actualizar Datos
     header("Access-Control-Allow-Origin: *");
-             $plcac = $_POST["plcac"];
-             $tipoac    = $_POST["tipoac"];
-             $marcaac = $_POST["marcaac"];
-             $modac    = $_POST["modac"];
-             $numac= $_POST["numac"];
+      $id = $_POST["id_grua"];
+       $plcac = $_POST["plac"];
+       $tipoac    = $_POST["tipoac"];
+       $marcaac = $_POST["marcaac"];
+       $modac    = $_POST["modac"];
+       $numac= $_POST["numac"];
 
-             $conn->query("update gruas set tipo = '$tipoac',marca='$marcaac
-              ',modelo='$modac',numero='$numac' where placas = '$plcac'" );
-             $conn->close();
+       $id_operador = $_POST["id_operador"];
 
-        break;
+       $conn->query("UPDATE gruas set placas = '$plcac', tipo = '$tipoac',marca='$marcaac
+        ',modelo='$modac',numero='$numac', id_operador='$id_operador' where id_grua = '$id'" );
+       $conn->close();
+
+  break;
 
   case "delete":///-----------------Eliminar Datos
       header("Access-Control-Allow-Origin: *");
@@ -70,7 +73,7 @@ switch ($metodo) {
       header("Access-Control-Allow-Origin: *");
         $vbuscar = $_GET["vbuscar"];
 
-        $result = $conn->query("Select * from gruas where placas='$vbuscar'");
+        $result = $conn->query("Select * from gruas where id_grua='$vbuscar'");
         $vbuscar = array();
         while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
             $data=array(

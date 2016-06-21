@@ -1,3 +1,4 @@
+var cont_tableAllUsers = 1;
 $('document').ready(function(e){
  /* $("#eliminar").hide();
   var cookie = document.cookie;
@@ -10,32 +11,105 @@ $('document').ready(function(e){
 
   }*/
 
+  $('.modal-triggerGetAllRem').leanModal();
+
   $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year
   });
 
+  console.log("Ready en remolque.js");
+
 
  $.ajax({
      type: "get",
      dataType: 'json',
-     url: "http://127.0.0.1/Recibos_Gruas/table/remolque.php?met=show",//URL dela funcion a ejecutar en table/clientes.php
+     url: url +"remolque.php?met=show",
      success: function (data){
+      console.log("success data: " + data);
       for (var i = 0; i < data.length; i++) {
 
-          $("tbody").append( $("<tr> <td>"+data[i][0]+"</td><td>"+data[i][1]+
+          $("#tbodyR").append( $("<tr> <td>"+data[i][0]+"</td><td>"+data[i][1]+
             "</td><td>"+data[i][2]+"</td><td>"+data[i][3]+
-            "</td><td>"+data[i][4]+"</td><td>"+data[i][5]
-            +"</td><td>"+data[i][6]+"</td><td>"+data[i][7]+"</td><td>"+data[i][8]+"</td><td>"+data[i][9]+"</td></tr>"));
+            "</td><td>"+data[i][4]+"</td><td>"+data[i][5]+
+            "</td><td>"+data[i][6]+"</td><td>"+data[i][7]+"</td><td>"+data[i][8]+"</td><td>"+data[i][9]+"</td></tr>"));
         }
         $('#example').dataTable();
 
-     } // respuesta de case en table/clientes.php
+     },
+     error: function (request, status, error) {
+            console.log("\n\n*** Error AJAX ***\n\n" + error);
+            //alert(xhr.status);
+            //alert(thrownError);
+        }
  });
 
 });//--------------------------END DOCUMENT
 
+function getAllRem()
+{
+    //alert("Clickeado!");
+    if(cont_tableAllUsers === 1)
+    {
+      $.ajax({
+       type: "get",
+       dataType: 'json',
+       url: url + "remolque.php?met=show",
+       success: function (data){
+        console.log("*** For ***\ncont_tableAllUsers: " + cont_tableAllUsers );
+        for (var i = 0; i < data.length; i++) {
+            //console.log("getClient: " + getClient(data[i][1] ) );
 
+            $("#tbodyAllRem").append
+              (
+                $(
+                    "<tr id ='pointer' onclick='getRowRem();' >"+
+                    "<td>"+data[i][0]+"</td><td>"+data[i][1]+
+                    "</td><td>"+data[i][2]+"</td><td>"+data[i][3]+
+                    "</td><td>"+data[i][4]+"</td><td>"+data[i][5]+
+                    "</td><td>"+data[i][6]+"</td><td>"+data[i][7]+
+                    "</td><td>"+data[i][8]+"</td><td>"+data[i][9]+
+                    "</td></tr>"
+                )
+              );
+
+            //console.log("Exito; data.length: " + data.length, 4000);
+          } // Fin for
+          cont_tableAllUsers = cont_tableAllUsers + 1;
+          $('#tableAllRem').dataTable();
+       },
+       error:
+       //function (xhr, ajaxOptions, thrownError){
+         // alert(xhr.status);
+          //alert(thrownError);
+        //}
+
+        function (request, status, error) {
+
+          console.log(request.responseText);
+        }
+      });
+  } // Fin if de cont_tableAllUsers
+}
+
+function getRowRem()
+{
+    var table = $('#tableAllRem').DataTable();
+
+        $('#tbodyAllRem').on( 'click', 'tr', function () {
+
+              console.log( table.row( this ).data() );
+              var registro = table.row( this ).data(); // Obtener todos los datos de la actual fila
+
+              var id = registro[0];
+
+                  document.getElementById("vbuscar").value = id;
+
+                  document.getElementById("noseliminar").value = id;
+
+              $('#modalGetAllRem').closeModal(); // Cerrar el modal cuando se seleccione el cliente
+        } );
+}
 
 function agregarremolque(){//Funcion agregar usuario
 
@@ -74,7 +148,7 @@ function agregarremolque(){//Funcion agregar usuario
 
   $.ajax({
       type: "POST",
-      url: "http://127.0.0.1/Recibos_Gruas/table/remolque.php?met=store",//URL dela funcion a ejecutar en table/clientes.php
+      url: url +"remolque.php?met=store",//URL dela funcion a ejecutar en table/clientes.php
       data: $data, //enviar los datos que colocamos dentro del objeto
       success: function (data){
       location.reload();
@@ -116,7 +190,7 @@ function modificarremolque(){
             'nsiActualizar': nsiActualizar};
   $.ajax({
       type: "POST",
-      url: "http://127.0.0.1/Recibos_Gruas/table/remolque.php?met=update",//URL dela funcion a ejecutar en table/usuarios.php
+      url: url +"remolque.php?met=update",//URL dela funcion a ejecutar en table/usuarios.php
       data: $data, //enviar los datos que colocamos dentro del objeto
       success: function (data){ location.reload();
       } // respuesta de case en table/usuarios.php
@@ -134,7 +208,7 @@ function eliminarremolque(){
 
    $.ajax({
        type: "POST",
-       url: "http://127.0.0.1/Recibos_Gruas/table/remolque.php?met=delete",//URL dela funcion a ejecutar en table/clientes.php
+       url: url +"remolque.php?met=delete",//URL dela funcion a ejecutar en table/clientes.php
        data: $data, //enviar los datos que colocamos dentro del objeto
        success: function (data){ location.reload();} // respuesta de case en table/clientes.php
    });
@@ -150,7 +224,7 @@ function buscarremolque(){
    $.ajax({
        type: "GET",
        dataType: 'json',
-       url: "http://127.0.0.1/Recibos_Gruas/table/remolque.php?met=search",//URL dela funcion a ejecutar en table/usuarios.php
+       url: url +"remolque.php?met=search",//URL dela funcion a ejecutar en table/usuarios.php
        data: $data, //enviar los datos que colocamos dentro del objeto
        success: function (data){
                                  document.getElementById("id_remolques").value = data[0][0];

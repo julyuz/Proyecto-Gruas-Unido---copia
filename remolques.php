@@ -1,10 +1,18 @@
-<?php include('inc/header.php'); ?>
+<?php include('inc/header.php');
+  date_default_timezone_set('America/Mexico_City');
+  session_start();
+  if(isset($_SESSION['Usuario'])){
+
+  }else{
+    header("Location: iniciar.php?Error=Acceso denegado");
+  }
+ ?>
 <script src="js/remolque.js"></script>
+<script src="js/funciones_generales.js"></script>
 
 <meta chartset="UTF-8">
 
-
-       <div class="row" id="row1_remolques">
+    <div class="row" id="row1_remolques">
 
       <div class="col s12 l4" id="agregar_remolques">
         <div class="card">
@@ -74,7 +82,7 @@
                     </div>
                   </div>
 
-                   <a class="waves-effect waves-teal btn-flat" onclick="agregarremolque()">Agregar</a>
+                   <a class="waves-effect btn green" onclick="agregarremolque()">Agregar</a>
                 </form>
 
               </div>
@@ -88,12 +96,61 @@
                 <h2 class="title">Modificar Remolque</h2>
                   <form class="col s12" action="javascript:buscarvehiculo()">
                     <div class="row">
-                      <div class="input-field col s6">
-                        <input  id="vbuscar" type="text" class="validate"  required>
-                        <label for="first_name">Id del remolque</label>
+                      <div class="input-field col s12">
+
+                         <!-- Modal Trigger -->
+                          <div class="row">
+                              <div class="input-field col s6">
+                                <input  id="vbuscar" placeholder="Código remolque" type="text" class="validate" required>
+                                <label for="first_name">Código remolque</label>
+                              </div>
+
+                              <div class="col s6">
+                                <a class="waves-effect waves-light
+                                btn orange modal-triggerGetAllRem"
+                                href="#modalGetAllRem" onclick="getAllRem()">Remolque</a>
+                              </div>
+                          </div>
+
+                        <!-- Modal Structure -->
+                        <div id="modalGetAllRem" class="modal">
+                          <div class="modal-content" id="modal-contentGetAllRem">
+                            <h4>Remolques</h4>
+                            <p>Elija un remolque:</p>
+
+                            <table id="tableAllRem" class="display responsive-table"  cellspacing="0"  style="font-size:12x;">
+                              <thead>
+                                <tr id="pointer">
+
+                                <th>Id remolque</th>
+                                <th>Tipo</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Capacidad</th>
+
+                                <th>Serie</th>
+                                <th>Tipo de carroceria</th>
+                                <th>P.A.</th>
+                                <th>A.C.</th>
+                                <th>No. de siniestro</th>
+
+                                </tr>
+                              </thead>
+                              <tbody id ="tbodyAllRem">
+
+                              </tbody>
+                            </table>
+
+                          </div>
+                          <div class="modal-footer">
+                            <a href="#!" class=" modal-action
+                            modal-close waves-effect waves-green btn-flat">Aceptar</a>
+                          </div>
+                        </div>
                       </div>
-                      <div class="input-field col s6">
-                        <a class="waves-effect waves-teal btn-flat" onclick="buscarremolque()" >Buscar</a>
+                      <div class="col s12">
+
+                        <a class="waves-effect waves-green btn-flat" onclick="buscarremolque()" >Buscar</a>
                       </div>
                     </div>
                   </form>
@@ -165,7 +222,7 @@
                       </div>
                     </div>
 
-                    <a class="waves-effect waves-teal btn-flat" onclick="modificarremolque()" >Modificar</a>
+                    <a class="waves-effect btn green" onclick="modificarremolque()" >Modificar</a>
                   </form>
 
             </div>
@@ -177,11 +234,25 @@
             <div class="row">
               <h2 class="title">Eliminar Remolque</h2>
               <div class="input-field col s12">
-                <input id="noseliminar" type="number" class="validate" placeholder="id remolque" required>
-                <label for="icon_prefix">id del remolque</label>
+
+                <div class="col s12">
+                   <!-- Modal Trigger -->
+                          <div class="row">
+                              <div class="input-field col s6">
+                                <input  id="noseliminar" placeholder="Código remolque" type="text" class="validate" required>
+                                <label for="first_name">Código remolque</label>
+                              </div>
+
+                              <div class="col s6">
+                                <a class="waves-effect waves-light
+                                btn orange modal-triggerGetAllRem"
+                                href="#modalGetAllRem" onclick="getAllRem()">Remolque</a>
+                              </div>
+                          </div>
+                </div>
               </div>
             </div>
-            <a class="waves-effect waves-teal btn-flat" onclick="eliminarremolque()">Eliminar</a>
+            <a class="waves-effect btn red" onclick="eliminarremolque()">Eliminar</a>
             <div class="row"> <p></p> </div>
         </div>
       </div>
@@ -197,7 +268,7 @@
                   <thead>
                     <tr>
 
-                    <th>id remolque</th>
+                    <th>Id remolque</th>
                     <th>Tipo</th>
                     <th>Marca</th>
                     <th>Modelo</th>
@@ -210,7 +281,7 @@
 
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="tbodyR">
 
                   </tbody>
                 </table>

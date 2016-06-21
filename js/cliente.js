@@ -1,3 +1,5 @@
+var cont_tableAllUsers =1;
+
 $('document').ready(function(e){
  /* $("#eliminar").hide();
     var cookie = document.cookie;
@@ -10,12 +12,14 @@ $('document').ready(function(e){
 
     }
   */
+  $('.modal-triggerGetAllUsers').leanModal();
+
 
   // Muestra los clientes existentes en cuanto carga la página
    $.ajax({
        type: "get",
        dataType: 'json',
-       url: "http://127.0.0.1/Recibos_Gruas/table/clientes.php?met=show",//URL dela funcion a ejecutar en table/clientes.php
+       url: url +"clientes.php?met=show",//URL dela funcion a ejecutar en table/clientes.php
        success: function (data){
         for (var i = 0; i < data.length; i++) {
 
@@ -36,6 +40,71 @@ $('document').ready(function(e){
 });//--------------------------END DOCUMENT
 
 
+function getAllUsers()
+{
+    //alert("Clickeado!");
+    if(cont_tableAllUsers === 1)
+    {
+      $.ajax({
+       type: "get",
+       dataType: 'json',
+       url: url + "clientes.php?met=show",
+       success: function (data){
+        console.log("*** For ***\ncont_tableAllUsers: " + cont_tableAllUsers );
+        for (var i = 0; i < data.length; i++) {
+            //console.log("getClient: " + getClient(data[i][1] ) );
+
+            $("#tbodyAllUsers").append
+              (
+                $(
+                    "<tr id ='pointer' onclick='getRowUsers();' >"+
+                    "<td>"+data[i][0]+"</td><td>"+data[i][1]+
+                    "</td><td>"+data[i][2]+"</td><td>"+data[i][3]+
+                    "</td><td>"+data[i][4]+"</td><td>"+data[i][5]+
+                    "</td><td>"+data[i][6]+"</td><td>"+data[i][7]+
+                    "</td><td>"+data[i][8]+"</td><td>"+data[i][9]+
+                    "</td><td>"+data[i][10]+"</td><td>"+data[i][11]+
+                    "</td></tr>"
+                )
+              );
+
+            //console.log("Exito; data.length: " + data.length, 4000);
+          } // Fin for
+          cont_tableAllUsers = cont_tableAllUsers + 1;
+          $('#tableAllUsers').dataTable();
+       },
+       error:
+       //function (xhr, ajaxOptions, thrownError){
+         // alert(xhr.status);
+          //alert(thrownError);
+        //}
+
+        function (request, status, error) {
+
+          console.log(request.responseText);
+        }
+      });
+  } // Fin if de cont_tableAllUsers
+}
+
+function getRowUsers()
+{
+    var table = $('#tableAllUsers').DataTable();
+
+        $('#tbodyAllUsers').on( 'click', 'tr', function () {
+
+              console.log( table.row( this ).data() );
+              var registro = table.row( this ).data(); // Obtener todos los datos de la actual fila
+
+              var id = registro[0];
+
+                  document.getElementById("clienteBuscar").value = id;
+
+                  document.getElementById("nombreliminar").value = id;
+
+              $('#modalGetAllUsers').closeModal(); // Cerrar el modal cuando se seleccione el cliente
+        } );
+}
 
 function agregarclientes(){//Funcion agregar usuario
 
@@ -85,7 +154,7 @@ function agregarclientes(){//Funcion agregar usuario
 
   $.ajax({
       type: "POST",
-      url: "http://127.0.0.1/Recibos_Gruas/table/clientes.php?met=store",//URL dela funcion a ejecutar en table/clientes.php
+      url: url + "clientes.php?met=store",//URL dela funcion a ejecutar en table/clientes.php
       data: $data, //enviar los datos que colocamos dentro del objeto
       success: function (data){ location.reload();
       } // respuesta de case en table/clientes.php
@@ -134,7 +203,7 @@ function modificarCliente(){
             };
   $.ajax({
       type: "POST",
-      url: "http://127.0.0.1/Recibos_Gruas/table/clientes.php?met=update",//URL dela funcion a ejecutar en table/usuarios.php
+      url: url +"clientes.php?met=update",//URL dela funcion a ejecutar en table/usuarios.php
       data: $data, //enviar los datos que colocamos dentro del objeto
       success: function (data){ location.reload();} // respuesta de case en table/usuarios.php
   });
@@ -151,7 +220,7 @@ function eliminarclientes(){
 
      $.ajax({
          type: "POST",
-         url: "http://127.0.0.1/Recibos_Gruas/table/clientes.php?met=delete",//URL dela funcion a ejecutar en table/clientes.php
+         url: url +"clientes.php?met=delete",//URL dela funcion a ejecutar en table/clientes.php
          data: $data, //enviar los datos que colocamos dentro del objeto
          success: function (data){ location.reload();} // respuesta de case en table/clientes.php
      });
@@ -167,7 +236,7 @@ function buscarCliente(){
    $.ajax({
        type: "GET",
        dataType: 'json',
-       url: "http://127.0.0.1/Recibos_Gruas/table/clientes.php?met=search",//URL dela funcion a ejecutar en table/usuarios.php
+       url: url +"clientes.php?met=search",//URL dela funcion a ejecutar en table/usuarios.php
        data: $data, //enviar los datos que colocamos dentro del objeto
        success: function (data){
                                  document.getElementById("co").value = data[0][0];
