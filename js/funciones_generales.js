@@ -1,6 +1,7 @@
 //********
 //  Cambiar la url por la de la maquina real
 //********
+// Variable usada en cada modulo
 var url = "http://127.0.0.1/Proyecto Gruas Unido - copia/table/";
 
 // ***** Funciones COOKIES
@@ -14,7 +15,7 @@ function guardarCookie(nombre, valor)
   //nombre = document.getElementById("nombre").value;
   //valor = document.getElementById("valor").value;
 
-  console.log("nombre: " + nombre + " valor: " + valor);
+  //console.log("nombre: " + nombre + " valor: " + valor);
 
 
   caduca = "31 Dec 2020 23:59:59 GMT";
@@ -40,7 +41,7 @@ function leerCookie(nombre)
   }
   var igual = miCookie.indexOf("=");
   var valor = miCookie.substring(igual + 1);
-  console.log("metodo leerCookie() -> valor de cookie: " + nombre +" = " + valor);
+  //console.log("metodo leerCookie() -> valor de cookie: " + nombre +" = " + valor);
   return valor;
 }
 
