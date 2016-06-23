@@ -28,7 +28,7 @@
 
         <div class="row">
             <div class="col s12">
-                <h2>Lista de imágenes</h2>
+                <h2 style="color: #5CC6D0;">Lista de imágenes</h2>
             </div>
         </div>
 
