@@ -4,11 +4,11 @@
 */
 
 $('document').ready(function(e){
-	Materialize.toast("Listo el header", 1000);
-	console.log('Metodo de header.js leerCookie(nivel) : ' + leerCookie('nivel'));
+	//Materialize.toast("Listo el header", 1000);
+	//console.log('Metodo de header.js leerCookie(nivel) : ' + leerCookie('nivel'));
 
 	var cookie = leerCookie('nivel').substring(0, 1);
-	console.log("Cookie: " + cookie + " length: " + cookie.length);
+	//console.log("Cookie: " + cookie + " length: " + cookie.length);
 
 	if( cookie === "2") // Si el valor de la cookie ( nivel ) es 2, quiere decir que es nivel de trabajador, y por tanto se ocultan los apartados de 'modificar' y 'eliminar'
 	{
