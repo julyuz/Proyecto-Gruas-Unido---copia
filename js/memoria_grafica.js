@@ -194,10 +194,11 @@ function getRowMG()
               var fdo = registro[3];
 
               document.getElementById("nombreliminar").value = id;
-              document.getElementById("co").value = id;
-              document.getElementById("placasActualizar").value = placas;
-              document.getElementById("fecha_ingresoActualizar").value = fin;
-              document.getElementById("fecha_documentoActualizar").value = fdo;
+              document.getElementById("id_MG").value = id;
+              document.getElementById("memoria_graficaBuscar").value = id;
+              //document.getElementById("placasActualizar").value = placas;
+              //document.getElementById("fecha_ingresoActualizar").value = fin;
+              //document.getElementById("fecha_documentoActualizar").value = fdo;
 
               $('#modalGetAllMG').closeModal(); // Cerrar el modal cuando se seleccione el cliente
         } );
@@ -259,6 +260,7 @@ function getRowCar()
               //var fsa = registro[6];
 
               document.getElementById("placas").value = placas;
+              document.getElementById("placasActualizar").value = placas;
               document.getElementById("fecha_ingreso").value = fin;
               //document.getElementById("fecha_documento").value = fsa;
 
@@ -266,11 +268,16 @@ function getRowCar()
         } );
 }
 
-function crearPDF_img(id_MG)
+function crearPDF_img()
 {
-  console.log("metodo crearPDF_img(id_MG): " + id_MG);
+  var id_MG = document.getElementById("id_MG").value;
+  if( id_MG === "")
+    Materialize.toast("Completar campos requeridos", 4000);
+  else
+  {
+    console.log("metodo crearPDF_img(id_MG): " + id_MG);
 
-  var form = document.forms.namedItem("form_add");
+    var form = document.forms.namedItem("form_add");
     var placas = document.getElementById("placas").value;
 
     //form.addEventListener('submit', function(ev)
@@ -280,33 +287,63 @@ function crearPDF_img(id_MG)
           oData = new FormData(document.forms.namedItem("form_add")); // variable que obtiene el formulario nombrado 'form_add'
 
         //oData.append("CustomField", "This is some extra data"); // Se le agrega la 2da opcion en la posicion 1era opcion al formulario 'oData'
-        if(placas !== "")
-        {
-          oData.append("placas", placas); // Agregar placas en la variable placas
-          oData.append("id_MG", id_MG); // Agregar el id_memoria_grafica para insertar este id en la tabla 'fotos'
-        }
 
-        var oReq = new XMLHttpRequest();
+        oData.append("id_MG", id_MG); // id de MG a mandar para obtener las fotos de esta MG
+
+
+        var request = new XMLHttpRequest();
+        request.open("POST",
+          url + "memorias_graficas.php?met=prueba_get_datos", true) ;
+
+        request.onload = function(oEvent)
+        {
+            if ( request.status == 200 )
+            {
+                console.log("Respuesta de pruebas_get_datos: " + request.responseText);
+            }
+        };
+        request.send(oData);
+
+        /*var oReq = new XMLHttpRequest();
         oReq.open("POST",
-          url + "memorias_graficas.php?met=get_photos_perMG", true);
+          url + "memorias_graficas.php?met=get_img_perMg", true);
 
         oReq.onload = function(oEvent)
         {
           if (oReq.status == 200) { // Si la respuesta es satisfactoria se notifica en la variable 'oOutput'
             //oOutput.innerHTML = "correcta respuesta !: " + JSON.parse(oReq.responseText);
             //Materialize.toast("correcta respuesta " + JSON.parse(oReq.responseText, 17500));
-            Materialize.toast("Correcta respuesta: " + oReq.responseText, 15555);
+            //Materialize.toast("Correcta respuesta: " + oReq.responseText, 15555);
 
             //var imgs = JSON.parse(oReq.responseText); // Obtener cada imagen desde las respuesta ( vienen separadas por una coma ( ',' ) ), con un split ( dividir la cadena con el caracter pasado )
             var imags = oReq.responseText;
             console.log("imags: " + imags);
 
-            var jsonString = JSON.stringify(imags);
+            // Codigo necesario para separar cada imagen obtenida ( agregandole una ',' ( coma ) ),
+            var split = imags.split(",=,");
+            console.log("*** split: " + split + " length: " + split.length);
+
+            var imgs_enviar ="";
+            for( var i =0; i < split.length - 1; i++)
+            {
+              if( i !== split.length-2 )
+                imgs_enviar = imgs_enviar + split[i] + ",";
+              else
+                imgs_enviar = imgs_enviar + split[i];
+              console.log("\nsplit[ " + i + " ] : " + split[i] + " length: " + split[i].length);
+            }
+
+            console.log("imgs_enviar: " + imgs_enviar + " length: " + imgs_enviar.length);
+            document.getElementById("output").innerHTML = "imgs_enviar --> " + imgs_enviar;
+
+            //var jsonString = JSON.stringify(imags);
+
+            //console.log("Antes de met=create_pdf_MG, jsonString: " + jsonString);
 
             // crear el pdf con las imagenes obtenidas en la respuesta anteior ( oReq )
             $.ajax({
                 type: "POST",
-                data: { data : jsonString },
+                data: { "data" : imgs_enviar },
                 url: url + "memorias_graficas.php?met=create_pdf_MG",
                 success: function (data){
 
@@ -322,52 +359,27 @@ function crearPDF_img(id_MG)
                   //}
 
                   function (request, status, error) {
-
                     console.log(request.responseText);
                   }
             });
 
-
             //flag_img = true;
           } else { // Si la respuesta es incorrecta se notifica en la variable 'oOutput'
             oOutput.innerHTML = "Error AAAA" + oReq.status + " occurred uploading your file.<br \/>";
+            console.log("\n\nError respuesta de getImg_perMg ---> " + oReq.status + "\n\n");
           }
         };
 
         oReq.send(oData); // La variable 'oReq' envia los datos ( el formulario 'form_add' ) al servidor
-
-    /*$.ajax({
-          type: "POST",
-          data: $datos,
-          url: url + "memorias_graficas.php?met=create_pdf_MG",
-          //data: $data, //enviar los datos que colocamos dentro del objeto
-          success: function (data){
-            // Mandar llamar a una funcion para crear el PDF
-
-            //Materialize.toast("Documento creado en Recibos_Gruas/PDFs/" + data, 5000);
-            console.log("Respuesta: " + data);
-
-            //location.reload();
-          },
-          error:
-           //function (xhr, ajaxOptions, thrownError){
-             // alert(xhr.status);
-              //alert(thrownError);
-            //}
-
-            function (request, status, error) {
-
-              console.log(request.responseText);
-            }
-      });
-    */
+        */
+  }
 }
 
-function crearPDF()
+function crearPDF() // Crear pdf sencillo ( con header y footer )
 {
     $.ajax({
           type: "POST",
-          url: url + "memorias_graficas.php?met=create_pdf_MG",
+          url: url + "memorias_graficas.php?met=create_pdf",
           //data: $data, //enviar los datos que colocamos dentro del objeto
           success: function (data){
             // Mandar llamar a una funcion para crear el PDF
@@ -423,11 +435,11 @@ function agregarMemoria_grafica()
           success: function (data){
             // Mandar llamar a una funcion para crear el PDF
 
-            Materialize.toast("Correcto, id: " + data, 5000);
+            Materialize.toast("Correcto, registro con id: " + data, 5000);
 
             subirImagenes(data); // Funcion para subir las imagenes seleccionadas e insertarlas en la tabla 'fotos',  de acuerdo con 'data' ( el id_memoria_grafica ) recien insertada en la tabla 'memorias_graficas'
-            crearPDF_img(data);
-            //location.reload();
+            //crearPDF_img(data);
+            location.reload();
           }
       });
 
@@ -438,7 +450,7 @@ function agregarMemoria_grafica()
 
 function modificarMemoria_grafica()
 {
-  var co = document.getElementById("co").value;
+  var co = document.getElementById("memoria_graficaBuscar").value;
   var placasActualizar=document.getElementById("placasActualizar").value;
   console.log("Placas: " + placasActualizar);
   var fecha_ingresoActualizar=document.getElementById("fecha_ingresoActualizar").value;
@@ -493,6 +505,12 @@ function eliminarMemoria_grafica()
 function buscarMemoria_grafica()
 {
    var memoria_graficaBuscar=document.getElementById("memoria_graficaBuscar").value;//Obtener los valores de input y guardarlos en variable
+   if( memoria_graficaBuscar === "")
+   {
+      Materialize.toast("Completar campos requeridos", 4000);
+   }
+   else{
+
    $data = { 'memoria_graficaBuscar' : memoria_graficaBuscar };
    console.log("memoria_graficaBuscar: " + $data.memoria_graficaBuscar);
     //console.log("\n nombreActualizar: " + document.getElementById("nombreActualizar").value);
@@ -502,16 +520,22 @@ function buscarMemoria_grafica()
        url: url + "memorias_graficas.php?met=search",
        data: $data, //enviar los datos que colocamos dentro del objeto
        success: function (data){
-          Materialize.toast("Correcto", 2000);
 
-          document.getElementById("co").value = data[0][0];
+        if( data.length > 0 )
+        {
+
+          //Materialize.toast("Correcto", 2000);
+          //document.getElementById("co").value = data[0][0];
           document.getElementById("fecha_ingresoActualizar").value = data[0][1];
           document.getElementById("fecha_documentoActualizar").value = data[0][2];
           document.getElementById("placasActualizar").value = data[0][3];
           //document.getElementById("imgActualizar").value = data[0][4];
+        }
+        else{ Materialize.toast("No hay registro", 4000); }
 
-       } // respuesta de case en table/recibos_efectivo.php
+       } // respuesta de case en table/memorias_graficas.php
      });
+  } // fin else
 }
 
 function agregar_campoIMG_add() // Funcion para agregar un input['file'] a 'Agregar memoria'
@@ -611,8 +635,8 @@ function subirImagenes(id_MG) // Funcion para subir al servidor las imagenes sel
         oReq.onload = function(oEvent)
         {
           if (oReq.status == 200) { // Si la respuesta es satisfactoria se notifica en la variable 'oOutput'
-            oOutput.innerHTML = "Subida correcta!: " + oReq.responseText;
-            Materialize.toast("Subida correcta " + oReq.responseText, 3500);
+            oOutput.innerHTML = "Subida correcta!: " + oReq.responseText + " ";
+            Materialize.toast("Subida correcta " + oReq.responseText + " ", 3500);
             //flag_img = true;
           } else { // Si la respuesta es incorrecta se notifica en la variable 'oOutput'
             oOutput.innerHTML = "Error AAAA" + oReq.status + " occurred uploading your file.<br \/>";
@@ -649,7 +673,15 @@ function subirImagenes_mod(co) // Funcion para subir al servidor las imagenes se
         {
           if (oReq.status == 200) { // Si la respuesta es satisfactoria se notifica en la variable 'oOutput'
             //oOutput.innerHTML = "Subida correcta!";
-            Materialize.toast("Subida correcta", 3500);
+            if (oReq.responseText === 1)
+            {
+              Materialize.toast("Datos actualizados", 4000);
+              Materialize.toast("Subida correcta", 3500);
+            }
+            if (oReq.responseText === 2) { Materialize.toast("No se actualizo: " + oReq.responseText, 4000); }
+
+            console.log("Respuesta de upload_images_mod: " + oReq.responseText);
+
           } else { // Si la respuesta es incorrecta se notifica en la variable 'oOutput'
             oOutput.innerHTML = "Error " + oReq.status + " occurred uploading your file.<br \/>";
           }

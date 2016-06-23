@@ -16,6 +16,36 @@
 <meta chartset="UTF-8">
 <div class="row" id="row1_memoria">
 
+      <div class="row"></div>
+      <div class="row">
+
+        <!-- Modal Trigger -->
+          <div class="row">
+            <div class="col s6">
+
+              <div class="input-field col s12">
+               <input id="id_MG" type="text" class="validate" placeholder="Código de memoria gráfica" required>
+               <label for="icon_prefix">Código de memoria gráfica</label>
+             </div>
+
+            </div>
+
+            <div class="col s6">
+              <a class="waves-effect waves-light
+              btn orange modal-triggerGetAllMG"
+              href="#modalGetAllMG" onclick="getAllMG()">Memoria gráfica</a>
+            </div>
+          </div>
+
+      </div>
+
+        <div class="row">
+          <div id="output">A</div>
+        </div>
+        <div class="row">
+          <a class="waves-effect waves-light btn green" onclick="crearPDF_img()">Crear PDF</a>
+        </div>
+
         <div class="col s12 m12 l4" id ="agregar_memoria">
 
           <div class="card">
@@ -149,12 +179,10 @@
                     </div>-->
 
                     <div class="row">
-                      <a class="waves-effect btn blue" onclick="agregarMemoria_grafica()">Crear documento</a>
+                      <a class="waves-effect btn green" onclick="agregarMemoria_grafica()">Agregar</a>
                     </div>
 
-                    <div class="row">
-                      <a class="waves-effect white-waves btn black" onclick="crearPDF()">Crear PDF</a>
-                    </div>
+
 
                     <div class="row"></div>
                   </form>
@@ -174,10 +202,20 @@
 
                         <!-- Modal Trigger -->
                         <div class="row">
-                          <div class="col s4 offset-s4">
+
+                          <div class="input-field col s6">
+                            <input id="memoria_graficaBuscar" type="number" class="validate" placeholder="Codigo de memoria gráfica" required maxlength="20">
+                            <label for="first_name">Codigo de memoria_gráfica</label>
+                          </div>
+
+                          <div class="col s6">
                             <a class="waves-effect waves-light
                             btn orange modal-triggerGetAllMG"
                             href="#modalGetAllMG" onclick="getAllMG()">Memoria gráfica</a>
+                          </div>
+
+                          <div class="input-field col s12">
+                            <a class="waves-effect btn-flat waves-green" onclick="buscarMemoria_grafica()" >Buscar</a>
                           </div>
                         </div>
 
@@ -213,12 +251,18 @@
                         </div>
 
                         <div class="row">
-                          <div class="input-field col s12">
+                          <div class="input-field col s6">
                             <input  id="placasActualizar" onKeyUp ="javascript:convertir_aMayuscula(this.value, this.id)"
                             maxlength="10" placeholder="Placas" type="text" class="validate" required>
                             <label for="first_name">Placas</label>
                           </div>
+                          <div class="col s6">
+                            <a class="waves-effect waves-light
+                            btn orange modal-triggerGetAllCars"
+                            href="#modalGetAllCars" onclick="getAllCars()">Vehículo</a>
+                          </div>
                         </div>
+
 
                         <!--<div class="input-field col s6">
                           <input  id="memoria_graficaBuscar" type="text" class="validate" maxlength="15" required
@@ -232,12 +276,6 @@
                     </form>
 
                     <form name="form_mod" enctype="multipart/form-data">
-                      <div class="row">
-                        <div class="input-field col s12">
-                          <input disabled value="co" id="co" type="number" class="validate" placeholder="Codigo de memoria gráfica" required maxlength="20">
-                          <label for="first_name">Codigo de memoria_gráfica</label>
-                        </div>
-                      </div>
                       <div class="row">
                       <div class="input-field col s6">
                        <label for="fecha_ingreso">Fecha de ingreso</label>
@@ -290,7 +328,7 @@
                       <!--</div>-->
                     </div>
 
-                       <a class="waves-effect waves-teal btn-flat" onclick="modificarMemoria_grafica()" >Modificar documento</a>
+                       <a class="waves-effect btn green" onclick="modificarMemoria_grafica()" >Modificar documento</a>
                     </form>
                     <div class="row"></div>
                </div>
@@ -302,53 +340,22 @@
               <div class="row" >
                   <h2 class="title">Eliminar Memoria gráfica</h2>
 
-                    <div class="input-field col s12">
-                       <input id="nombreliminar" type="text" class="validate" placeholder="Nombre cliente o codigo de memoria gráfica" required>
-                       <label for="icon_prefix">Placas o codigo de memoria gráfica</label>
+                    <div class="input-field col s6">
+                       <input id="nombreliminar" type="text" class="validate" placeholder="Codigo de memoria gráfica" required>
+                       <label for="icon_prefix">Cpdigo de memoria gráfica</label>
                      </div>
 
                     <!-- Modal Trigger -->
                         <div class="row">
-                          <div class="col s4 offset-s4">
+                          <div class="col s6">
                             <a class="waves-effect waves-light
                             btn orange modal-triggerGetAllMG"
                             href="#modalGetAllMG" onclick="getAllMG()">Memoria gráfica</a>
                           </div>
                         </div>
-
-                        <!-- Modal Structure -->
-                        <div id="modalGetAllMG" class="modal">
-                          <div class="modal-content" id="modal-contentGetAllMG">
-                            <h4>Memorias gráficas</h4>
-                            <p>Elija una memoria gráfica:</p>
-
-                            <table id="tableAllMG" class="display responsive-table"  cellspacing="0"  style="font-size:12x;">
-                              <thead>
-                                <tr>
-
-                                <th>Código</th>
-                                <th>Placas</th>
-
-                                <th>Fecha ingreso</th>
-                                <th>Fecha documento</th>
-                                <th>Cantidad fotos</th>
-
-                                </tr>
-                              </thead>
-                              <tbody id ="tbodyAllMG">
-
-                              </tbody>
-                            </table>
-
-                          </div>
-                          <div class="modal-footer">
-                            <a href="#!" class=" modal-action
-                            modal-close waves-effect waves-green btn-flat">Aceptar</a>
-                          </div>
-                        </div>
                </div>
 
-               <a class="waves-effect waves-red btn-flat" onclick="eliminarMemoria_grafica()">Eliminar</a>
+               <a class="waves-effect btn red" onclick="eliminarMemoria_grafica()">Eliminar</a>
                <div class="row"><p></p> </div>
           </div>
         </div>
@@ -379,57 +386,4 @@
         </div>
       </div> <!-- fin row -->
 
-
-
-    <!--<div class="row">
-            <div class="col s12">
-
-                <section id="slider2">
-            <div class="slider" id="slidesMateria">
-                <ul class="slides" id="slidesMaterial">
-                    <li>
-                        <img src="img/walle.jpg" data-thumb="img/walle.jpg" alt="" data-transition="slideInLeft" />
-                    </li>
-                    <li>
-                        <img class="materialboxed" src="http://lorempixel.com/580/250/nature/3">
-                        <div class="caption right-align">
-                            <h3>Right Aligned Caption</h3>
-                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-                        </div>
-                    </li>
-                    <li>
-                        <img class="materialboxed" src="http://lorempixel.com/580/250/nature/4">
-                        <div class="caption center-align">
-                            <h3>This is our big Tagline!</h3>
-                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-                        </div>
-                    </li>
-
-
-
-                </ul>
-            </div>
-
-        </section>
-
-    </div>
-  -->
-
-      <!--<div class="row">
-        <div class="col s12">
-            <div class="slider">
-              <ul class="slides" id="slidesId">
-
-                <li>
-                    <img class='img-responsive' src='img/subidas/where-to-watch_2.png' alt=''>
-                    <div class='caption center-align'>
-                      <h3 class="purple">This is our big Tagline!</h3>
-                      <h5 class='light grey-text text-lighten-3'>A.</h5>
-                    </div>
-                </li>
-              </ul>
-            </div>
-
-        </div>
-      </div>-->
 <?php include('inc/footer.php'); ?>
