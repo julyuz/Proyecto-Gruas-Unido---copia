@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="row">
-                      <a class="waves-effect waves-teal btn blue" onclick="agregarUsuario()">Agregar</a>
+                      <a class="waves-effect btn green" onclick="agregarUsuario()">Agregar</a>
                     </div>
                   </form>
 
@@ -124,7 +124,7 @@
                         </div>
                       </div>
 
-                      <a href="#!" class="btn waves-effect blue" onclick="buscarUsuario()">buscar</a>
+                      <a href="#!" class="btn-flat waves-effect waves-green" onclick="buscarUsuario()">buscar</a>
 
                       <div class="input-field col s12">
                         <input  id="nombreActualizar" placeholder="Nombre" type="text" class="validate" required>
@@ -172,7 +172,7 @@
                     </div>
 
                     <div class="row">
-                      <a class="waves-effect btn blue" onclick="modificarUsuario()">Modificar</a>
+                      <a class="waves-effect btn green" onclick="modificarUsuario()">Modificar</a>
                     </div>
                   </form>
 
