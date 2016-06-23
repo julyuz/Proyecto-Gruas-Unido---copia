@@ -142,9 +142,59 @@
                     </div>
 
                     <div class="row">
-                      <div class="input-field col s12">
-                        <input  id="autoridad_intervino" type="text" class="validate" required>
-                        <label for="first_name">¿Autoridad que intervino?</label>
+                      <div class="col s12">
+                        <!-- Modal Trigger -->
+                        <div class="row">
+                          <div class="col s6">
+                            <a class="waves-effect waves-light
+                            btn orange modal-triggerGetAllAutoridades"
+                            href="#modalGetAllAutoridades" onclick="getAllAutoridades()">Autoridad</a>
+
+                          </div>
+
+                          <div class="input-field col s6">
+                            <input  id="autoridad_intervino" type="text" class="validate" required
+                            placeholder="¿Autoridad que intervino?">
+                            <label for="first_name">¿Autoridad que intervino?</label>
+                            Federal, estatal o municipal
+                          </div>
+
+                        </div>
+
+                        <!-- Modal Structure -->
+                        <div id="modalGetAllAutoridades" class="modal">
+                          <div class="modal-content" id="model-contentGetAllAutoridades">
+                            <h4>Autoridades</h4>
+                            <p>Elija un Autoridad:</p>
+
+                            <table id="tableAllAutoridades" class="display responsive-table"
+                             cellspacing="0"  style="font-size:12x;">
+                              <thead>
+                                <tr id = "pointer">
+
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Jefe</th>
+                                <th>Tel Jefe</th>
+                                <th>Puesto</th>
+
+                                <th>Tel Dependencia</th>
+                                <th>Logo</th>
+
+                                </tr>
+                              </thead>
+                              <tbody id="tbodyAllAutoridades">
+
+                              </tbody>
+                            </table>
+
+
+                          </div>
+                          <div class="modal-footer">
+                            <a href="#!" class=" modal-action
+                            modal-close waves-effect waves-orange btn-flat">Aceptar</a>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -152,6 +202,7 @@
                       <div class="input-field col s12">
                         <input  id="motivo" type="text" class="validate" required>
                         <label for="first_name">Motivo</label>
+                        Accidente, infraccion o pension
                       </div>
                     </div>
 
@@ -371,10 +422,17 @@
                       </div>
 
                        <div class="row">
-                        <div class="input-field col s12">
-                          <input  id="aiActualizar" type="text" class="validate" placeholder="Autoridad que intervino" required>
-                          <label for="first_name">Autoridad que intervino</label>
-                        </div>
+                        <!-- Modal Trigger -->
+                          <div class="col s6">
+                            <a class="waves-effect waves-light
+                            btn orange modal-triggerGetAllAutoridades"
+                            href="#modalGetAllAutoridades" onclick="getAllAutoridades()">Autoridad</a>
+
+                          </div>
+                          <div class="input-field col s6">
+                            <input  id="aiActualizar" type="text" class="validate" placeholder="Autoridad que intervino" required>
+                            <label for="first_name">Autoridad que intervino</label>
+                          </div>
                       </div>
 
                        <div class="row">
