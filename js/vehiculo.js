@@ -1,4 +1,4 @@
-
+var cont_tableAllAutoridad= 1;
 var cont_tableAllClients = 1;
 var cont_tableAllCars = 1;
 
@@ -22,6 +22,7 @@ $('document').ready(function(e){
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-triggerGetAllClients').leanModal(); // Crear el modal con la clase pasada
     $('.modal-triggerGetAllCars').leanModal();
+    $('.modal-triggerGetAllAutoridades').leanModal();
 
  $.ajax({
      type: "get",
@@ -57,6 +58,71 @@ $('document').ready(function(e){
  });
 
 });//--------------------------END DOCUMENT
+
+function getAllAutoridades()
+{
+    //alert("Clickeado!");
+    if( cont_tableAllAutoridad === 1)
+    {
+      $.ajax({
+       type: "get",
+       dataType: 'json',
+       url: url + "autoridades.php?met=show",//URL dela funcion a ejecutar en table/Autoridadrador.php
+       success: function (data){
+        console.log("*** For ***\ncont_tableAllAutoridad: " + cont_tableAllAutoridad);
+        for (var i = 0; i < data.length; i++) {
+            //console.log("getClient: " + getClient(data[i][1] ) );
+            var img_autoridad = data[i][12];
+            var ruta_img = "img/subidas/logos/"+img_autoridad;
+            $("#tbodyAllAutoridades").append
+              (
+                $("<tr onclick='getRowAutoridad();' ><td>"+data[i][0]+
+                "</td><td>"+data[i][1]+
+                "</td><td>"+data[i][2]+"</td><td>"+data[i][3]+
+                "</td><td>"+data[i][4]+"</td><td>"+data[i][11]+
+                "</td><td><img class='responsive-img_1' src='"+ruta_img+"' /></td></tr>"
+                )
+              );
+            //console.log("Exito; data.length: " + data.length, 4000);
+          }
+          cont_tableAllAutoridad= cont_tableAllAutoridad + 1;
+          $('#tableAllAutoridades').dataTable();
+
+       },
+       error: /*function (xhr, ajaxOptions, thrownError){
+          alert(xhr.status);
+          alert(thrownError);
+        }*/
+
+        function (request, status, error) {
+
+          console.log(request.responseText);
+        }
+      });
+    }
+}
+
+function getRowAutoridad()
+{
+    //Materialize.toast("Id: " + id, 2400);
+
+    var table = $('#tableAllAutoridades').DataTable();
+
+        $('#tbodyAllAutoridades').on( 'click', 'tr', function () {
+
+              console.log( table.row( this ).data() );
+              var registro = table.row( this ).data(); // Obtener todos los datos de la actual fila
+              var nombre_id = new Array(2);
+              var nomAutoridad = registro[1];
+
+              document.getElementById("autoridad_intervino").value = nomAutoridad;
+
+              document.getElementById("aiActualizar").value = nomAutoridad;
+
+              $('#modalGetAllAutoridades').closeModal(); // Cerrar el modal cuando se seleccione el cliente
+
+        } );
+}
 
 function getAllCars()
 {
