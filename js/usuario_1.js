@@ -240,13 +240,17 @@ function buscarUsuario(){
   console.log("usuario --> " + usuario);
    $data = { 'usuario' : usuario };
    console.log($data);
+   if (usuario === "") { Materialize.toast('Completar campos requeridos', 4000); }
+  else
+  {
    $.ajax({
        type: "GET",
        dataType: 'json',
        url: url + "usuarios.php?met=search",//URL dela funcion a ejecutar en table/usuarios.php
        data: $data, //enviar los datos que colocamos dentro del objeto
        success: function (data){
-
+        if( data.length > 0)
+          {
             document.getElementById("co").value= data[0][0];
             document.getElementById("nombreActualizar").value = data[0][1];
             document.getElementById("usuarioActualizar").value = data[0][2];
@@ -263,5 +267,8 @@ function buscarUsuario(){
             if( nivel === "2")
                 radios[0].checked = true;
           }
+          else{ Materialize.toast("No hay registro", 4000); }
+        }
      });
+ }
 }
