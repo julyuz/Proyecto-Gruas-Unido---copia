@@ -14,10 +14,10 @@
 </head>
 <body class="color1">
 	<header align="center" class="texto tamtex1">
-	Gruas Mancera
+	<h2 style="color: #5CC6D0;">Gruas Mancera</h2>
 	</header> <hr>
 
-	<div class="container login1" align="center">
+	<!--<div class="container login1" align="center">
 		<div class="row">
 		<div class="col-xs-12">
 	<form id="formulario" >
@@ -41,7 +41,55 @@
 		</div>
 		</div>
 		</div>
+	-->
 
+	<div class="row">
+		<div class="col m3 l3 " style="color: transparent;">AAA</div>
+		<div class="col s12 m6 l6" id="inicio_sesion">
+          <div class="card  blue-grey darken-1">
+          	<div class="card-image">
+          		<div class="row">
+          			<div class="col s4" style="color: transparent;">A</div>
+          			<div class="col s4">
+		              <img src="Login/gym/imj/user.png">
+		              <span class="card-title">Iniciar Sesión</span>
+          			</div>
+          		</div>
+            </div>
+            <div class="card-content">
+                <div class="row">
+                  <h2 class="title">Ingrese sus datos</h2>
+                  <form class="col s12">
+                  	<?php
+						if(isset($_GET['error'])){
+							echo '<center class="errorlogin">Tus datos son incorrectos</center>';
+						}
+					?>
+
+                     <div class="row">
+                      <div class="input-field col s12">
+                         <input type="text" id="user" class="form-control white-text" name="Usuario" placeholder="Usuario">
+                        <label for="first_name">Usuario</label>
+                      </div>
+                    </div>
+
+                      <div class="row">
+                      <div class="input-field col s12">
+                        <input type="password" id="pass" class="form-control white-text" id="password" name="Password" placeholder="Password">
+
+                        <label for="first_name">Password</label>
+                      </div>
+                    </div>
+
+                     <a style="background-color: #5CC6D0 !important;"
+                     	class="waves-effect waves-light btn blue" onclick="iniciar_sesion()">iniciar sesión</a>
+                  </form>
+
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
